@@ -1,0 +1,119 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.table-wrapper {
+    /*display: inline-block;*/
+    
+    width: 100%;
+}
+
+    .table-wrapper table {
+        display: block;
+        /*background-color: aquamarine;*/
+        width: 100%;
+    }
+
+        /*.narrow td{
+    overflow: hidden;
+    width: 280px;
+    text-align: left;
+    max-width: 75px;
+}*/
+
+        /*#tblRecentTickets{
+    display:block;
+}*/
+
+        .table-wrapper table tr {
+            /*max-width: 3000px;*/
+            /*max-height: 200px !important;*/
+            /*min-width: 1400px;*/
+            /*overflow-y: hidden !important;*/
+            /*display: block;*/
+        }
+
+            .table-wrapper table tr td {
+                /*max-height: 200px !important;*/
+                /*overflow-y: hidden !important;*/
+                /*max-width: 50px;*/
+                /*white-space: nowrap;*/
+            }
+
+
+/* Change background color and text color of Nav Bar on hover */
+.navbar-nav .nav-item .dropdown-menu .dropdown-item:hover {
+    background-color: #f8f9fa; /* Change to your preferred color */
+    color: #007bff; /* Change to your preferred color */
+}
+
+/* Optional: Add a pointer cursor to indicate clickability */
+.navbar-nav .nav-item .dropdown-menu .dropdown-item {
+    cursor: pointer;
+}
+
+/* Optional: Add a transition effect for a smooth color change */
+.navbar-nav .nav-item .dropdown-menu .dropdown-item {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover state for dropdown categories */
+.navbar-nav .nav-item.dropdown:hover .nav-link {
+    background-color: #f8f9fa; /* Change to your preferred hover background color */
+    color: #007bff; /* Change to your preferred hover text color */
+}
+
+/* Optional: Add a transition effect for smooth color change */
+.navbar-nav .nav-item.dropdown .nav-link {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+@keyframes blinkRedWhite {
+    0% {
+        background-color: red;
+        color: white; /* Anchor color when background is red */
+    }
+
+    50% {
+        background-color: white;
+        color: blue; /* Anchor color when background is white */
+    }
+
+    100% {
+        background-color: red;
+        color: white; /* Anchor color when background is red */
+    }
+}
+
+.blinking {
+    animation: blinkRedWhite 1s infinite;
+}
+
+    .blinking a {
+        color: white; /* Default anchor color when background is red */
+        transition: color 0.5s ease; /* Smooth color transition for anchor text */
+    }
+
+    .blinking p {
+        transition: color 0.5s ease; /* Smooth color transition for paragraph text */
+    }

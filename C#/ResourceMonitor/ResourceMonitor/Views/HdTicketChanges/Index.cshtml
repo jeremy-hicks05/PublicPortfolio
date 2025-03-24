@@ -1,0 +1,155 @@
+﻿@model IEnumerable<ResourceMonitor.Models.KACE.HdTicketChange>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HdTicketId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Timestamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CommentLoc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnersOnlyDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocalizedDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocalizedOwnersOnlyDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mailed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MailedTimestamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MailerSession)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NotifyUsers)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViaEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnersOnly)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResolutionChanged)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SystemComment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketDataChange)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViaScheduledProcess)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViaImport)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViaBulkUpdate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HdTicketId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Timestamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CommentLoc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OwnersOnlyDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocalizedDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocalizedOwnersOnlyDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mailed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MailedTimestamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MailerSession)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NotifyUsers)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ViaEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OwnersOnly)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResolutionChanged)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SystemComment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketDataChange)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ViaScheduledProcess)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ViaImport)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ViaBulkUpdate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

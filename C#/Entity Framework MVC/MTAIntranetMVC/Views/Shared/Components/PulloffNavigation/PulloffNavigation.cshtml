@@ -1,0 +1,23 @@
+﻿<nav class="navbar navbar">
+    <tr style="padding:10px">
+        <td>
+            <a class="btn btn-primary" asp-controller="Pulloffs"
+               asp-action="PulloffsByMonth"
+               asp-route-year="@DateTime.Now.Year"
+               asp-route-id="">
+                Year of @DateTime.Now.Year
+            </a>
+        </td>
+        @for (int i = 1; i < 13; i++)
+        {
+            <td>
+                    <a class="btn btn-primary" asp-controller="Pulloffs"
+               asp-action="PulloffsByMonth"
+               asp-route-year="@DateTime.Now.Year"
+               asp-route-id=@i>
+                        @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(i)
+                </a>
+            </td>
+        }
+    </tr>
+</nav>

@@ -1,0 +1,102 @@
+﻿@model IEnumerable<ResourceMonitor.Models.Process>
+
+@{
+    ViewData["Title"] = "Processes";
+}
+
+<h1>MTA Processes</h1>
+
+<p>
+    <a asp-action="Create">Add New Process Listener</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ServerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProcessName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FriendlyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Recipients)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PreviousState)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentState)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastCheck)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastEmailSent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastHealthy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailFrequency)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AcceptableDowntime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProcessName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FriendlyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Recipients)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PreviousState)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentState)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastCheck)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastEmailSent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastHealthy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailFrequency)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AcceptableDowntime)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    setInterval(function () {
+        location.reload();
+    }, 120000);
+</script>

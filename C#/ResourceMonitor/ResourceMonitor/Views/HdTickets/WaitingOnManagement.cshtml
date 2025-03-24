@@ -1,0 +1,418 @@
+﻿@using ResourceMonitor.Models.KACE;
+@model IEnumerable<HdTicketViewModel>
+
+@{
+    ViewData["Title"] = "Tickets";
+
+    string SetBackground(string ticketStatus)
+    {
+        switch (ticketStatus)
+        {
+            case "New":
+                return "bg-danger text-white";
+            case "Opened":
+                return "bg-warning text-dark";
+            case "Waiting on Submitter Input":
+                return "bg-info text-white";
+            case "Closed":
+            case "Resolved":
+                return "bg-success text-white";
+            default:
+                return "";
+        }
+    }
+
+    string SetText(string ticketStatus)
+    {
+        switch (ticketStatus)
+        {
+            case "New":
+                return "text-white";
+            case "Opened":
+                return "text-dark";
+            case "Waiting on Submitter Input":
+                return "text-white";
+            case "Closed":
+            case "Resolved":
+                return "text-white";
+            default:
+                return "";
+        }
+    }
+}
+
+<h1>Tickets Waiting on Management (@Model.Count())</h1>
+
+@* @foreach (User u in ViewBag.ITSOwners)
+{
+    <p>
+        <a href="@($"https://mtadev.mta-flint.net:40443/HdTickets/NeedsAttention/{u.UserName}")" target="_blank">@u.UserName Needs Attention</a>  : @ViewBag.TicketCounts[u.UserName]
+        -
+        <a href="@($"https://mtadev.mta-flint.net:40443/HdTickets/ByUser/{u.UserName}/30")" target="_blank">@u.UserName Trends</a>
+    </p>
+} *@
+
+<div class="table-wrapper">
+    <table id="tblNeedsResponse" class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HdPriority)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HdImpact)
+                </th>
+                <th>
+                    Modified
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Created)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Owner)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Submitter)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HdStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HdQueue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HdCategory)
+                </th>
+                @* <th>
+                @Html.DisplayNameFor(model => model.CcList)
+                </th> *@
+                <th>
+                    @Html.DisplayNameFor(model => model.Escalated)
+                </th>
+                @* <th>
+                @Html.DisplayNameFor(model => model.CustomFieldValue0)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.CustomFieldValue1)
+                </th> *@
+                @* <th>
+                @Html.DisplayNameFor(model => model.CustomFieldValue2)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.CustomFieldValue3)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.CustomFieldValue4)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.CustomFieldValue5)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.CustomFieldValue6)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.CustomFieldValue7)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.CustomFieldValue8)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.CustomFieldValue9)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.CustomFieldValue10)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.CustomFieldValue11)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.CustomFieldValue12)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.CustomFieldValue13)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.CustomFieldValue14)
+                </th> *@
+                <th>
+                    @Html.DisplayNameFor(model => model.DueDate)
+                </th>
+                @* <th>
+                @Html.DisplayNameFor(model => model.IsManualDueDate)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.SlaNotified)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.TimeOpened)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.TimeClosed)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.TimeStalled)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.MachineId)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.SatisfactionRating)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.SatisfactionComment)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.Resolution)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.AssetId)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.ParentId)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.IsParent)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.ApproverId)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.ApproveState)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.Approval)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.ApprovalNote)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.ServiceTicketId)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.HdServiceStatusId)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.HdUseProcessStatus)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.HtmlSummary)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.TicketTemplateId)
+                </th>
+                <th>
+                @Html.DisplayNameFor(model => model.EmailMessageId)
+                </th> *@
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="@(SetBackground(item.HdStatus.Name))">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        <div style="width:400px;overflow:hidden">
+                            @Html.DisplayFor(modelItem => item.Summary)
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HdPriority.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HdImpact.Name)
+                    </td>
+                    <td>
+                        @item.Modified.ToString("yyyy-MM-dd")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        @(item.Owner != null ? @Html.DisplayFor(modelItem => item.Owner.UserName) : "Unassigned")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Submitter.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HdStatus.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HdQueue.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HdCategory.Name)
+                    </td>
+                    @* <td>
+                @Html.DisplayFor(modelItem => item.CcList)
+                </td> *@
+                    <td>
+                        @* @Html.DisplayFor(modelItem => item.Escalated) *@
+                        @(item.Escalated == DateTime.MinValue ? "" : item.Escalated)
+                    </td>
+                    @* <td>
+                @Html.DisplayFor(modelItem => item.CustomFieldValue0)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.CustomFieldValue1)
+                </td> *@
+                    @* <td>
+                @Html.DisplayFor(modelItem => item.CustomFieldValue2)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.CustomFieldValue3)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.CustomFieldValue4)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.CustomFieldValue5)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.CustomFieldValue6)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.CustomFieldValue7)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.CustomFieldValue8)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.CustomFieldValue9)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.CustomFieldValue10)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.CustomFieldValue11)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.CustomFieldValue12)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.CustomFieldValue13)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.CustomFieldValue14)
+                </td> *@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DueDate)
+                    </td>
+                    @* <td>
+                @Html.DisplayFor(modelItem => item.IsManualDueDate)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.SlaNotified)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.TimeOpened)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.TimeClosed)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.TimeStalled)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.MachineId)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.SatisfactionRating)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.SatisfactionComment)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.Resolution)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.AssetId)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.ParentId)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.IsParent)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.ApproverId)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.ApproveState)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.Approval)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.ApprovalNote)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.ServiceTicketId)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.HdServiceStatusId)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.HdUseProcessStatus)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.HtmlSummary)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.TicketTemplateId)
+                </td>
+                <td>
+                @Html.DisplayFor(modelItem => item.EmailMessageId)
+                </td> *@
+                    <td>
+                        @* <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> | *@
+                        <a class="btn btn-primary" target="_blank" href="http://192.168.122.33/adminui/ticket.php?ID=@item.Id">View in KACE</a>
+                        @* <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> *@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    setInterval(function () {
+        location.reload();
+    }, 120000);
+
+    window.onload = function () {
+        var tableRows = document.querySelectorAll('#tblNeedsResponse tr');
+
+        tableRows.forEach(function (row) {
+            var maxHeight = 245; // Set your desired maximum height
+            var cellContents = row.querySelectorAll('td');
+
+            cellContents.forEach(function (cell) {
+                var cellContentWrapper = document.createElement('div');
+                cellContentWrapper.className = 'cell-content-wrapper';
+                cellContentWrapper.innerHTML = cell.innerHTML;
+                cell.innerHTML = '';
+                cell.appendChild(cellContentWrapper);
+
+                if (cellContentWrapper.offsetHeight > maxHeight) {
+                    cellContentWrapper.style.maxHeight = maxHeight + 'px';
+                    cellContentWrapper.style.overflow = 'hidden';
+                    cellContentWrapper.style.textOverflow = 'ellipsis'; // Optionally add ellipsis for text overflow
+                }
+            });
+        });
+    };
+</script>

@@ -1,0 +1,79 @@
+﻿@model ViewTraineeEvalsModel
+@using MTAIntranet.Shared
+
+<partial name="_Notification" />
+
+@if (Model is not null)
+{
+    <h1>View Daily Trainee Evaluations for </h1>
+    <form asp-action="GetEval" method="get">
+        <td><label asp-for="@Model.EmployeeNum"></label></td>
+        <td><input asp-for="@Model.EmployeeNum"></td>
+        <td><span asp-validation-for="@Model.EmployeeNum"></span></td>
+
+@*        <td><label asp-for="@Model.Odometer"></label></td>
+        <td><input asp-for="@Model.Odometer" value="225655"></td>
+        <td><span asp-validation-for="@Model.Odometer"></span></td>*@
+        <input type="submit" value="View">
+    </form>
+    
+    @*<h2>Employee #: <input name="empNum" asp-for="@Model.EmployeeNum" value="@Model.EmployeeNum"></h2>*@
+    @if (@Model.TraineeEvals is not null && Model.TraineeEvals.Count > 0)
+    {
+        <h2>Name: @Model.TraineeEvals!.First().EmployeeLastName , @Model.TraineeEvals!.First().EmployeeFirstName</h2>
+    }
+    <table class="table table-striped mt-2">
+        <thead>
+            <tr>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Vehicle Type
+                </th>
+                <th>
+                    Instructor Name
+                </th>
+                <th>
+                    Pre/Post Trips
+                </th>
+                <th>
+                    Radio Etiquette
+                </th>
+                <th>
+                    Customer Service
+                </th>
+                <th>
+                    Defensive Driving
+                </th>
+                <th>
+                    RR Crossings
+                </th>
+                <th>
+                    W/C Securements
+                </th>
+                <th>
+                    Comments
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+    <tr>
+    @foreach(TraineeEval eval in @Model.TraineeEvals!)
+    {
+        
+        <td>@eval.Date</td>
+        <td>@eval.VehicleType</td>
+        <td>@eval.DIName</td>
+        <td>@eval.PrePostTrips</td>
+        <td>@eval.RadioEtiquette</td>
+        <td>@eval.CustomerService</td>
+        <td>@eval.DefensiveDriving</td>
+        <td>@eval.RRCrossings</td>
+        <td>@eval.WheelChairSecurements</td>
+        <td>@eval.Comments</td>
+    }
+    </tr>
+        </tbody>
+    </table>
+}

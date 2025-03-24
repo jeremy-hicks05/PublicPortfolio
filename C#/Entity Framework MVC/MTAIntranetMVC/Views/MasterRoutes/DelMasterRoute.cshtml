@@ -1,0 +1,23 @@
+﻿@using MTAIntranet.MVC
+@model DelMasterRouteModel
+@{
+
+}
+@if (Model is not null)
+{
+    <form asp-action="DelMasterRoute" method="post">
+        @if (Model.masterRoute is not null)
+        {
+            <p>Delete Master Route @Model.masterRoute.GetSignature() ?</p>
+            <td><label asp-for="@Model.masterRoute.PK_Route_ID"></label></td>
+            <td><input asp-for="@Model.masterRoute.PK_Route_ID" value="@Model.masterRoute.PK_Route_ID" readonly="readonly"></td>
+            <td><span asp-validation-for="@Model.masterRoute.PK_Route_ID"></span></td>
+
+            <input type="submit" value="Remove">
+        }
+    </form>
+}
+else
+{
+    <p>Master Route not found</p>
+}

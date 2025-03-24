@@ -1,0 +1,85 @@
+﻿@model FuelmasterKeyTicketModel
+
+<partial name="_Notification" />
+
+<p>Please enter information about your FuelMaster Ticket</p>
+@if(Model is not null)
+{
+    <form asp-action="FuelmasterKeyTicket" asp-route-sender="@User.Identity!.Name" method="post">
+
+        @*<td><label asp-for="@Model.Sender"></label></td>
+        <td><input asp-for="@Model.Sender" value="@User.Identity!.Name" readonly="readonly"/></td>
+        <td><span asp-validation-for="@Model.Sender"></span></td>*@
+
+        <td><label asp-for="@Model.EmployeeNum"></label></td>
+        <td><select asp-for="@Model.EmployeeNum" asp-items="@Model.EmployeeNums"></select></td>
+        <td><span asp-validation-for="@Model.EmployeeNum"></span></td>
+
+        <td><label asp-for="@Model.EmployeeFirstName"></label></td>
+        <td><input asp-for="@Model.EmployeeFirstName" value="@Model.EmployeeFirstName" /></td>
+        <td><span asp-validation-for="@Model.EmployeeFirstName"></span></td>
+
+        <td><label asp-for="@Model.EmployeeLastName"></label></td>
+        <td><input asp-for="@Model.EmployeeLastName" value="@Model.EmployeeLastName" /></td>
+        <td><span asp-validation-for="@Model.EmployeeLastName"></span></td>
+
+        <td><label asp-for="@Model.Department"></label></td>
+        <td><input asp-for="@Model.Department" value="@Model.Department" /></td>
+        <td><span asp-validation-for="@Model.Department"></span></td>
+
+        <td><label asp-for="@Model.VehicleID"></label></td>
+        <td><input asp-for="@Model.VehicleID" value="@Model.VehicleID" /></td>
+        <td><span asp-validation-for="@Model.VehicleID"></span></td>
+
+        <td><label asp-for="@Model.CurrentOdometer"></label></td>
+        <td><input asp-for="@Model.CurrentOdometer" value="@Model.CurrentOdometer" /></td>
+        <td><span asp-validation-for="@Model.CurrentOdometer"></span></td>
+
+        <td><label asp-for="@Model.PumpErrorMessage"></label></td>
+        <td><input asp-for="@Model.PumpErrorMessage" value="@Model.PumpErrorMessage" /></td>
+        <td><span asp-validation-for="@Model.PumpErrorMessage"></span></td>
+
+        <td><label asp-for="@Model.FuelPumpLocation"></label></td>
+        <td><input asp-for="@Model.FuelPumpLocation"/></td>
+        <td><span asp-validation-for="@Model.FuelPumpLocation"></span></td>
+
+        <td><label asp-for="@Model.FuelType"></label></td>
+        <td><input asp-for="@Model.FuelType"/></td>
+        <td><span asp-validation-for="@Model.FuelType"></span></td>
+
+        <br /><input type="submit" value="Submit">
+    </form>
+}
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#EmployeeNum").change(function (e) {
+            //alert("Test");
+            var employeeNumber = $("#EmployeeNum").val();
+            var parameter = { "EmployeeNumber" : employeeNumber };
+            $.ajax({
+                    type: "POST",
+                    url: "/TicketController/TestFunction/" + employeeNumber,
+                    contentType: "application/json; charset=utf-8",
+                    data: parameter,
+                    dataType: "text",
+                    success: function (result, status, xhr) {
+                        alert("Success! Result: " + result);
+                        $("#EmployeeFirstName").val(result.split(",")[0]);
+                        $("#EmployeeLastName").val(result.split(",")[1]);
+                        $("#VehicleID").val(result.split(",")[4]);
+                        $("#FuelPumpLocation").val(result.split(",")[3]);
+                        $("#CurrentOdometer").val(result.split(",")[5]);
+                        $("#FuelType").val(result.split(",")[7]);
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Error: " + error);
+                    }
+                });
+            });
+            return false;
+    });
+</script>

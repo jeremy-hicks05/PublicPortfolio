@@ -1,0 +1,131 @@
+﻿@model ResourceMonitor.Models.KACE.HdTicketChange
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>HdTicketChange</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="HdTicketId" class="control-label"></label>
+                <input asp-for="HdTicketId" class="form-control" />
+                <span asp-validation-for="HdTicketId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Timestamp" class="control-label"></label>
+                <input asp-for="Timestamp" class="form-control" />
+                <span asp-validation-for="Timestamp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comment" class="control-label"></label>
+                <input asp-for="Comment" class="form-control" />
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CommentLoc" class="control-label"></label>
+                <input asp-for="CommentLoc" class="form-control" />
+                <span asp-validation-for="CommentLoc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OwnersOnlyDescription" class="control-label"></label>
+                <input asp-for="OwnersOnlyDescription" class="form-control" />
+                <span asp-validation-for="OwnersOnlyDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LocalizedDescription" class="control-label"></label>
+                <input asp-for="LocalizedDescription" class="form-control" />
+                <span asp-validation-for="LocalizedDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LocalizedOwnersOnlyDescription" class="control-label"></label>
+                <input asp-for="LocalizedOwnersOnlyDescription" class="form-control" />
+                <span asp-validation-for="LocalizedOwnersOnlyDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mailed" class="control-label"></label>
+                <input asp-for="Mailed" class="form-control" />
+                <span asp-validation-for="Mailed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MailedTimestamp" class="control-label"></label>
+                <input asp-for="MailedTimestamp" class="form-control" />
+                <span asp-validation-for="MailedTimestamp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MailerSession" class="control-label"></label>
+                <input asp-for="MailerSession" class="form-control" />
+                <span asp-validation-for="MailerSession" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NotifyUsers" class="control-label"></label>
+                <input asp-for="NotifyUsers" class="form-control" />
+                <span asp-validation-for="NotifyUsers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ViaEmail" class="control-label"></label>
+                <input asp-for="ViaEmail" class="form-control" />
+                <span asp-validation-for="ViaEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="OwnersOnly" /> @Html.DisplayNameFor(model => model.OwnersOnly)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ResolutionChanged" /> @Html.DisplayNameFor(model => model.ResolutionChanged)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="SystemComment" class="control-label"></label>
+                <input asp-for="SystemComment" class="form-control" />
+                <span asp-validation-for="SystemComment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketDataChange" class="control-label"></label>
+                <input asp-for="TicketDataChange" class="form-control" />
+                <span asp-validation-for="TicketDataChange" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ViaScheduledProcess" class="control-label"></label>
+                <input asp-for="ViaScheduledProcess" class="form-control" />
+                <span asp-validation-for="ViaScheduledProcess" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ViaImport" class="control-label"></label>
+                <input asp-for="ViaImport" class="form-control" />
+                <span asp-validation-for="ViaImport" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ViaBulkUpdate" class="control-label"></label>
+                <input asp-for="ViaBulkUpdate" class="form-control" />
+                <span asp-validation-for="ViaBulkUpdate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

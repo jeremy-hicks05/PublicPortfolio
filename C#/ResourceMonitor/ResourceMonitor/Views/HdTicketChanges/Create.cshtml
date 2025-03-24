@@ -1,0 +1,75 @@
+﻿@model ResourceMonitor.Models.KACE.HdTicketChange
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>HdTicketChange</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mailed" class="control-label"></label>
+                <input asp-for="Mailed" class="form-control" />
+                <span asp-validation-for="Mailed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MailerSession" class="control-label"></label>
+                <input asp-for="MailerSession" class="form-control" />
+                <span asp-validation-for="MailerSession" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="OwnersOnly" /> @Html.DisplayNameFor(model => model.OwnersOnly)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ResolutionChanged" /> @Html.DisplayNameFor(model => model.ResolutionChanged)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="SystemComment" class="control-label"></label>
+                <input asp-for="SystemComment" class="form-control" />
+                <span asp-validation-for="SystemComment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketDataChange" class="control-label"></label>
+                <input asp-for="TicketDataChange" class="form-control" />
+                <span asp-validation-for="TicketDataChange" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ViaScheduledProcess" class="control-label"></label>
+                <input asp-for="ViaScheduledProcess" class="form-control" />
+                <span asp-validation-for="ViaScheduledProcess" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ViaImport" class="control-label"></label>
+                <input asp-for="ViaImport" class="form-control" />
+                <span asp-validation-for="ViaImport" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ViaBulkUpdate" class="control-label"></label>
+                <input asp-for="ViaBulkUpdate" class="form-control" />
+                <span asp-validation-for="ViaBulkUpdate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

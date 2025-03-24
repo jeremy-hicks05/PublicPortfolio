@@ -1,0 +1,96 @@
+﻿@using MTAIntranet.MVC.Models
+@using MTAIntranet.Shared
+@model MasterRouteListModel
+
+<div class="text-center">
+    <h1>@Model.Year Master Routes</h1>
+    <a class="btn btn-primary" asp-controller="MasterRoutes"
+       asp-action="AddMasterRoute">
+        Add MasterRoute
+    </a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>DoW</th>
+                <th>RouteName</th>
+                <th>Route</th>
+                <th>Run</th>
+                <th>Pull out Time</th>
+                <th>Pulloff Time</th>
+                <th>Mode</th>
+                <th>Suffix</th>
+                <th>Beg DH</th>
+                <th>End DH</th>
+                <th>Pulloffs</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (MasterRoute masterRoute in Model.MasterRoutes!)
+            {
+                <tr>
+                    <td style="border-width:thin">
+                        @masterRoute.dow
+                    </td>
+                    <td style="border-width:thin">
+                        @masterRoute.route_name
+                    </td>
+                    <td style="border-width:thin">
+                        @masterRoute.route
+                    </td>
+                    <td style="border-width:thin">
+                        @masterRoute.run
+                    </td>
+                    <td style="border-width:thin">
+                        @masterRoute.pull_out_time!.Value.ToString("HH:mm")
+                    </td>
+                    <td style="border-width:thin">
+                        @masterRoute.pull_in_time!.Value.ToString("HH:mm")
+                    </td>
+                    <td style="border-width:thin">
+                        @masterRoute.mode
+                    </td>
+                    <td style="border-width:thin">
+                        @masterRoute.suffix
+                    </td>
+                    <td style="border-width:thin">
+                        @masterRoute.beg_dh_miles
+                    </td>
+                    <td style="border-width:thin">
+                        @masterRoute.end_dh_miles
+                    </td>
+                    <td style="border-width:thin">
+                        @if (masterRoute.Matches is not null && masterRoute.Matches.Count > 0)
+                        {
+                            //https://localhost:7198/MasterRoutes/Pulloffs/2023/SHOPPER01H100030
+                            <a class="btn btn-primary" asp-controller="MasterRoutes"
+                       asp-action="MasterRoutePulloffs"
+                       asp-route-year="@Model.Year"
+                       asp-route-id="@masterRoute.GetSignature()">
+                                View ( @masterRoute.Matches.Count )
+                            </a>
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
+                    </td>
+                    <td style="border-width:thin">
+                        <a class="btn btn-secondary" asp-controller="MasterRoutes"
+                       asp-action="AddPulloff"
+                       asp-route-year="@Model.Year"
+                       asp-route-id="@masterRoute.GetSignature()">
+                            Add
+                        </a>
+                    </td>
+                    <td style="border-width:thin">
+                        <a class="btn btn-danger" asp-controller="MasterRoutes"
+                       asp-action="DelMasterRoute"
+                       asp-route-id="@masterRoute.PK_Route_ID">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

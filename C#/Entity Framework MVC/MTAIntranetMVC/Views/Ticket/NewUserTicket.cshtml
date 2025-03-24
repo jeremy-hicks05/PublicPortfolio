@@ -1,0 +1,27 @@
+﻿@model NewUserTicketModel
+
+<partial name="_Notification" />
+
+<p>Please enter information about your New User Ticket</p>
+@if(Model is not null)
+{
+<form asp-action="NewUserTicket" asp-route-sender="@User.Identity!.Name" method="post">
+        <td><label asp-for="@Model.Subject"></label></td>
+        <td><input asp-for="@Model.Subject" value="@Model.Subject"></td>
+        <td><span asp-validation-for="@Model.Subject"></span></td>
+
+        <td><label asp-for="@Model.Body"></label></td>
+        <td><input asp-for="@Model.Body" value="@Model.Body"/></td>
+        <td><span asp-validation-for="@Model.Body"></span></td>
+
+        <td><label asp-for="@Model.UserName"></label></td>
+        <td><input asp-for="@Model.UserName" value="@Model.UserName"/></td>
+        <td><span asp-validation-for="@Model.UserName"></span></td>
+
+        <td><label asp-for="@Model.Department"></label></td>
+        <td><input asp-for="@Model.Department" value="@Model.Department"/></td>
+        <td><span asp-validation-for="@Model.Department"></span></td>
+
+        <br /><input type="submit" value="Submit">
+    </form>
+}

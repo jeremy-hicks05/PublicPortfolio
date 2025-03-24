@@ -1,0 +1,82 @@
+﻿@using MTAIntranet.Shared
+@model PulloffsByMonthModel
+
+@await Component.InvokeAsync("PulloffNavigation")
+
+<div class="text-center">
+    @if (Model is not null)
+    {
+        @if (Model.Pulloffs is not null)
+        {
+            @if (Model.Pulloffs.Count > 0)
+            {
+                @if (Model.Pulloffs.Count == 1)
+                {
+                    <h1>(@Model!.Pulloffs!.Count) Pulloff for @Model.Filter @Model.Year: </h1>
+                }
+                else
+                {
+                    <h1>(@Model!.Pulloffs!.Count) Pulloffs for @Model.Filter  @Model.Year: </h1>
+                }
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>RouteName</th>
+                            <th>DoW</th>
+                            <th>Route</th>
+                            <th>Run</th>
+                            <th>Pulloff Time</th>
+                            <th>Return Time</th>
+                            <th>Mode</th>
+                            <th>Suffix</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Pulloff pulloff in Model.Pulloffs)
+                        {
+                            <tr>
+                                <td style="border-width:thin">
+                                    @pulloff.Route_Name
+                                </td>
+                                <td style="border-width:thin">
+                                    @pulloff.DoW
+                                </td>
+                                <td style="border-width:thin">
+                                    @pulloff.Route
+                                </td>
+                                <td style="border-width:thin">
+                                    @pulloff.Run
+                                </td>
+                                <td style="border-width:thin">
+                                    @pulloff.PulloffTime
+                                </td>
+                                <td style="border-width:thin">
+                                    @pulloff.PulloffReturn
+                                </td>
+                                <td style="border-width:thin">
+                                    @pulloff.Mode
+                                </td>
+                                <td style="border-width:thin">
+                                    @pulloff.Suffix
+                                </td>
+                                <td style="border-width:thin">
+                                    <a class="btn btn-danger" asp-controller="Pulloffs"
+                                        asp-action="DeletePulloff"
+                                        asp-route-year="@Model.Year"
+                                        asp-route-id="@pulloff.PulloffID">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No pulloffs found for @Model.Filter @Model.Year</p>
+            }
+        }
+    }
+</div>

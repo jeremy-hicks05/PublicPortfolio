@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ResourceMonitor</title>
+     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> 
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ResourceMonitor.styles.css" asp-append-version="true" />
+    @* <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> *@
+
+    @* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/darkly/bootstrap.min.css"> *@
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ResourceMonitor</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="monitoringDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Monitoring
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="monitoringDropdown">
+                                <a class="dropdown-item" asp-area="" asp-controller="Resources" asp-action="Dashboard">Dashboard</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Processes" asp-action="Index">Processes</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Servers" asp-action="Index">Servers</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Services" asp-action="Index">Services</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Websites" asp-action="Index">Websites</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="SqlTables" asp-action="Index">Sql Tables</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="ticketsDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Tickets
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="ticketsDropdown">
+                                <a class="dropdown-item" asp-area="" asp-controller="HdTickets" asp-action="Dashboard">Dashboard</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="HdTickets" asp-action="TicketPaths">Ticket Workflows</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="HdTickets" asp-action="Index">Recent Tickets</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="HdTickets" asp-action="NeedsAttention">Tickets that Need Attention</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="HdTickets" asp-action="WaitingOnManagement">Waiting on Management</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="HdTickets" asp-action="WaitingOnVendor">Waiting on Vendor</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="HdTickets" asp-action="Projects">Projects</a>
+                                @* <a class="dropdown-item" asp-area="" asp-controller="HdTickets" asp-action="ByDepartmentId" asp-route-departmentId="90">By Department</a> *@
+                                <a class="dropdown-item" asp-area="" asp-controller="HdTickets" asp-action="StaleProjects">Stale Projects</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="HdTickets" asp-action="ByDay" asp-route-daysBack="8">Ticket by Day</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="HdTickets" asp-action="ByWeek" asp-route-weeksBack="12">Tickets by Week</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="HdTickets" asp-action="ByMonth" asp-route-monthsBack="12">Tickets by Month</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="HdTickets" asp-action="ByUser" asp-route-username="admin" asp-route-daysBack="12">Tickets by User</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <p class="nav navbar-text">Hello, @User.Identity?.Name!</p>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container px-2 mx-2">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - ResourceMonitor - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

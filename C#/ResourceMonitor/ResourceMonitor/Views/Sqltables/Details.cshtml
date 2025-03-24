@@ -1,0 +1,84 @@
+﻿@model ResourceMonitor.Models.Sqltable
+
+@{
+    ViewData["Title"] = "SQL Table Listener Details";
+}
+
+<h1>SQL Table Listener Details</h1>
+
+<div>
+    <h4>SQL Table</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ServerName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ServerName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DatabaseName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DatabaseName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TableName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TableName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Recipients)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Recipients)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PreviousState)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PreviousState)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CurrentState)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CurrentState)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastCheck)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastCheck)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastEmailSent)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastEmailSent)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastHealthy)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastHealthy)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EmailFrequency)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EmailFrequency)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AcceptableDowntime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AcceptableDowntime)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to SQL Tables</a>
+</div>

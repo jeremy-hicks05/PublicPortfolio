@@ -1,0 +1,35 @@
+﻿@using MTAIntranet.MVC.Models
+@using MTAIntranet.Shared
+@model MaxQueueModel
+
+<div class="text-center">
+    <p>Total Transactions: @Model.MaxQueueList!.Count</p>
+    <a class="btn btn-primary" asp-controller="MaxQueue" asp-action="ViewBadTransactions">View Bad Transactions</a>
+    @*<a class="btn btn-primary" asp-controller="MaxQueue" asp-action="ViewMiscCostErrors">View Misc Cost Errors</a>*@
+    <a class="btn btn-primary" onclick="return confirm('Are you sure?')" asp-controller="MaxQueue" asp-action="PurgeRangeErrors">Purge Range Errors</a>
+    @*<a class="btn btn-primary" onclick="return confirm('Are you sure?')" asp-controller="MaxQueue" asp-action="PurgeMiscCostErrors">Purge Misc Cost Errors</a>*@
+    
+    <table class="table table-striped mt-2">
+        <thead class="table-light">
+            <tr>
+                <th style="border-width:thin">Row ID</th>
+                <th style="border-width:thin">Veh ID</th>
+                <th style="border-width:thin">Date</th>
+                <th style="border-width:thin">Connector Name</th>
+                <th style="border-width:thin">Error Message</th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (MaxQueue mq in Model.MaxQueueList!)
+    {
+        <tr>
+            <td style="border-width:thin">@mq.row_id</td>
+            <td style="border-width:thin">@mq.ColumnList!.Substring(81, 4)</td>
+            <td style="border-width:thin">@mq.X_datetime_insert</td>
+            <td style="border-width:thin">@mq.ConnectorName</td>
+            <td style="border-width:thin">@mq.ErrorMessage</td>
+        </tr>
+    }
+        </tbody>
+    </table>
+</div>

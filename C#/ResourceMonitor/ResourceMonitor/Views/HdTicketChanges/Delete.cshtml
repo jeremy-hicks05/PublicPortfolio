@@ -1,0 +1,147 @@
+﻿@model ResourceMonitor.Models.KACE.HdTicketChange
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>HdTicketChange</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HdTicketId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HdTicketId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Timestamp)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Timestamp)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CommentLoc)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CommentLoc)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OwnersOnlyDescription)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OwnersOnlyDescription)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LocalizedDescription)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LocalizedDescription)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LocalizedOwnersOnlyDescription)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LocalizedOwnersOnlyDescription)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Mailed)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Mailed)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MailedTimestamp)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MailedTimestamp)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MailerSession)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MailerSession)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NotifyUsers)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NotifyUsers)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ViaEmail)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ViaEmail)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OwnersOnly)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OwnersOnly)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ResolutionChanged)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ResolutionChanged)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SystemComment)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SystemComment)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TicketDataChange)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TicketDataChange)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ViaScheduledProcess)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ViaScheduledProcess)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ViaImport)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ViaImport)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ViaBulkUpdate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ViaBulkUpdate)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

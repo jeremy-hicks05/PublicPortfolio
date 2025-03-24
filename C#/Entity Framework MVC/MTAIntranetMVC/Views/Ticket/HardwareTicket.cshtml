@@ -1,0 +1,23 @@
+﻿@model HardwareTicketModel
+
+<partial name="_Notification" />
+
+<p>Please enter information about your Hardware Ticket</p>
+@if(Model is not null)
+{
+<form asp-action="HardwareTicket" asp-route-sender="@User.Identity!.Name" method="post">
+        <td><label asp-for="@Model.Subject"></label></td>
+        <td><input asp-for="@Model.Subject" value="@Model.Subject"></td>
+        <td><span asp-validation-for="@Model.Subject"></span></td>
+
+        <td><label asp-for="@Model.Body"></label></td>
+        <td><input asp-for="@Model.Body" value="@Model.Body"/></td>
+        <td><span asp-validation-for="@Model.Body"></span></td>
+
+        @*<td><label asp-for="@Model.Sender"></label></td>
+        <td><input asp-for="@Model.Sender" value="@User.Identity!.Name" readonly="readonly"/></td>
+        <td><span asp-validation-for="@Model.Sender"></span></td>*@
+
+        <br /><input type="submit" value="Submit">
+    </form>
+}

@@ -1,0 +1,13 @@
+﻿@model MTAIntranet.MVC.Models.SubmitTicketModel
+
+<partial name="_Notification" />
+
+<h2 class="h2">Please select the type of ticket you would like to submit:</h2>
+@if(Model is not null)
+{
+    foreach(string ticketType in Model.TicketTypes)
+    {
+        <a class="btn btn-primary m-1 p-2 border-3" href="@(@ticketType + "Ticket")">@ticketType</a>
+        <br/>
+    }
+}

@@ -1,0 +1,79 @@
+﻿@model ResourceMonitor.Models.Website
+
+@{
+    ViewData["Title"] = "Create Website Listener";
+}
+
+<h1>Create entry to monitor MTA Website</h1>
+
+<h4>Website Info</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ServerName" class="control-label"></label>
+                <input asp-for="ServerName" class="form-control" />
+                <span asp-validation-for="ServerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WebsiteName" class="control-label"></label>
+                <input asp-for="WebsiteName" class="form-control" />
+                <span asp-validation-for="WebsiteName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FriendlyName" class="control-label"></label>
+                <input asp-for="FriendlyName" class="form-control" />
+                <span asp-validation-for="FriendlyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipients" class="control-label"></label>
+                <input asp-for="Recipients" class="form-control" />
+                <span asp-validation-for="Recipients" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PreviousState" class="control-label"></label>
+                <input asp-for="PreviousState" class="form-control" readonly="readonly" value="Unknown" />
+                <span asp-validation-for="PreviousState" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentState" class="control-label"></label>
+                <input asp-for="CurrentState" class="form-control" readonly="readonly" value="Unknown" />
+                <span asp-validation-for="CurrentState" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastCheck" class="control-label"></label>
+                <input asp-for="LastCheck" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm")" readonly="readonly" />
+                <span asp-validation-for="LastCheck" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastEmailSent" class="control-label"></label>
+                <input asp-for="LastEmailSent" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm")" readonly="readonly" />
+                <span asp-validation-for="LastEmailSent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastHealthy" class="control-label"></label>
+                <input asp-for="LastHealthy" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm")" readonly="readonly" />
+                <span asp-validation-for="LastHealthy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailFrequency" class="control-label"></label>
+                <input asp-for="EmailFrequency" class="form-control" placeholder="Minutes" />
+                <span asp-validation-for="EmailFrequency" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AcceptableDowntime" class="control-label"></label>
+                <input asp-for="AcceptableDowntime" class="form-control" placeholder="Minutes" />
+                <span asp-validation-for="AcceptableDowntime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to Websites</a>
+</div>

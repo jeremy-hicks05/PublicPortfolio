@@ -1,0 +1,41 @@
+﻿@using MTAIntranet.MVC.Models
+@using MTAIntranet.Shared
+@model MainTransModel
+@{
+
+}
+
+<div class="text-center">
+    <table>
+        <tr style="border:medium">
+            <th style="border:1px solid; padding:5px;">Date/Time</th>
+            @*<th style="border:1px solid; padding:5px;">Auto Num</th>*@
+            <th style="border:1px solid; padding:5px;">Odometer</th>
+            @*<th style="border:1px solid; padding:5px;">Product</th>*@
+            <th style="border:1px solid; padding:5px;">TC</th>
+            <th style="border:1px solid; padding:5px;">Site ID</th>
+            <th style="border:1px solid; padding:5px;">Quantity</th>
+            <th style="border:1px solid; padding:5px;">Vehicle ID</th>
+            <th style="border:1px solid; padding:5px;">User ID</th>
+            <th style="border:1px solid; padding:5px;">Last Name</th>
+            <th style="border:1px solid; padding:5px;">First Name</th>
+        </tr>
+        @foreach (MainTrans mt in Model.MainTransList!)
+        {
+            <tr style="border:medium">
+                <td style="border:1px solid; padding:5px;">@mt.TRANTIME!.Value</td>
+                @*<td style="border:1px solid; padding:5px;">@mt.AUTONUM</td>*@
+                <td style="border:1px solid; padding:5px;">@mt.ODOMETER</td>
+                @*<td style="border:1px solid; padding:5px;">@mt.PRODUCT</td>*@
+                <td style="border:1px solid; padding:5px;">@mt.TC</td>
+                <td style="border:1px solid; padding:5px;">@mt.SITEID</td>
+                <td style="border:1px solid; padding:5px;">@mt.QUANTITY</td>
+                <td style="border:1px solid; padding:5px;">@mt.VEHICLEID</td>
+
+                <td style="border:1px solid; padding:5px;">@mt.User!.USERID</td>
+                <td style="border:1px solid; padding:5px;">@mt.User.LNAME</td>
+                <td style="border:1px solid; padding:5px;">@mt.User.FNAME</td>
+            </tr>
+        }
+    </table>
+</div>

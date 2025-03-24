@@ -1,0 +1,186 @@
+﻿@using ResourceMonitor.Models.KACE;
+@model Dictionary<string, List<HdTicket>[]>
+
+@{
+    //int svgHeight = 300; // Max # of tickets = 30 (*10)
+    int svgHeight = Math.Max(((ViewBag.HighestTicketCount + 10) * 10), 300);
+    //int svgHeight = 50 * 10;
+    //int svgWidth = 1400; // ViewBag.DaysBackMinusOne5 * daysBack
+    int svgWidth = 60 * ViewBag.DaysBack;
+
+    int xPaddingDot = 30;
+    int yPaddingDot = -40;
+
+    int xPaddingLine = 30;
+    int yPaddingLine = -40;
+
+    int xPaddingNum = 30;
+    int yPaddingNum = -40;
+
+    int xRelativePaddingNumRed = 0;
+    int yRelativePaddingNumRed = 20;
+
+    int xRelativePaddingNumGreen = 0;
+    int yRelativePaddingNumGreen = -10;
+
+    int xRelativePaddingNumBlue = 0;
+    int yRelativePaddingNumBlue = -20;
+
+    int xPaddingText = 30;
+    int yPaddingText = 0;
+
+    int xRelativePaddingText = 0;
+    int yRelativePaddingText = -10;
+}
+
+<h2>Ticket Trends from the last @(ViewContext.RouteData.Values["DaysBack"] == null ? 8 : @ViewContext.RouteData.Values["DaysBack"].ToString()) days</h2>
+
+<div>
+    <svg style="padding-left:20px" height="@svgHeight"
+         width="@svgWidth" xmlns="http://www.w3.org/2000/svg">
+        @for (int i = 0; i < ViewBag.DaysBack; i++)
+        {
+            @* All tickets *@
+            @if (i != ViewBag.DaysBackMinusOne)
+            {
+                <line x1="@((svgWidth / ViewBag.DaysBack) * i + xPaddingLine)"
+                      y1="@(svgHeight - (Model["All"][ViewBag.DaysBackMinusOne - i].Count * 10) + yPaddingLine)"
+                      x2="@((svgWidth / ViewBag.DaysBack) * (i+1) + xPaddingLine)"
+                      y2="@(svgHeight - (Model["All"][ViewBag.DaysBackMinusOne - (i + 1)].Count * 10) + yPaddingLine)"
+                      style="stroke:blue;stroke-width:2" />
+            }
+            <g stroke="black" stroke-width="3" fill="black">
+                <circle id="@(i)"
+                        cx="@((i * (svgWidth / ViewBag.DaysBack)) + xPaddingDot)"
+                        cy="@((svgHeight - (Model["All"][ViewBag.DaysBackMinusOne - i].Count * 10)) + yPaddingDot)"
+                        r="4" />
+            </g>
+
+            <g font-size="15" font-family="sans-serif" fill="blue"
+               text-anchor="middle">
+                <text x="@((i * (svgWidth / ViewBag.DaysBack)) + xPaddingNum)"
+                      y="@(svgHeight - (Model["All"][ViewBag.DaysBackMinusOne - i].Count * 10) + yPaddingNum)"
+                      dx="@xRelativePaddingNumBlue"
+                      dy="@yRelativePaddingNumBlue">@Model["All"][ViewBag.DaysBackMinusOne - i].Count</text>
+            </g>
+
+            @* Open tickets *@
+            @if (i != ViewBag.DaysBackMinusOne)
+            {
+                <line x1="@((svgWidth / ViewBag.DaysBack) * i + xPaddingLine)"
+                      y1="@(svgHeight - (Model["Opened"][ViewBag.DaysBackMinusOne - i].Count * 10) + yPaddingLine)"
+                      x2="@((svgWidth / ViewBag.DaysBack) * (i+1) + xPaddingLine)"
+                      y2="@(svgHeight - (Model["Opened"][ViewBag.DaysBackMinusOne - (i + 1)].Count * 10) + yPaddingLine)"
+                      style="stroke:red;stroke-width:2" />
+            }
+            <g stroke="black" stroke-width="3" fill="black">
+                <circle id="@(i)"
+                        cx="@((i * (svgWidth / ViewBag.DaysBack)) + xPaddingDot)"
+                        cy="@((svgHeight - (Model["Opened"][ViewBag.DaysBackMinusOne - i].Count * 10)) + yPaddingDot)"
+                        r="4" />
+            </g>
+
+            if (Model["Opened"][ViewBag.DaysBackMinusOne - i].Count != 0)
+            {
+                <g font-size="15" font-family="sans-serif" fill="red"
+                   text-anchor="middle">
+                    <text x="@((i * (svgWidth / ViewBag.DaysBack)) + xPaddingNum)"
+                          y="@(svgHeight - (Model["Opened"][ViewBag.DaysBackMinusOne - i].Count * 10) + yPaddingNum)"
+                          dx="@xRelativePaddingNumRed"
+                          dy="@yRelativePaddingNumRed">@Model["Opened"][ViewBag.DaysBackMinusOne - i].Count</text>
+                </g>
+            }
+
+            @* Closed tickets *@
+            @if (i != ViewBag.DaysBackMinusOne)
+            {
+                <line x1="@((svgWidth / ViewBag.DaysBack) * i + xPaddingLine)"
+                      y1="@(svgHeight - (Model["Closed"][ViewBag.DaysBackMinusOne - i].Count * 10) + yPaddingLine)"
+                      x2="@((svgWidth / ViewBag.DaysBack) * (i+1) + xPaddingLine)"
+                      y2="@(svgHeight - (Model["Closed"][ViewBag.DaysBackMinusOne - (i + 1)].Count * 10) + yPaddingLine)"
+                      style="stroke:green;stroke-width:2" />
+            }
+            <g stroke="black" stroke-width="3" fill="black">
+                <circle id="@(i)"
+                        cx="@((i * (svgWidth / ViewBag.DaysBack)) + xPaddingDot)"
+                        cy="@((svgHeight - (Model["Closed"][ViewBag.DaysBackMinusOne - i].Count * 10)) + yPaddingDot)"
+                        r="4" />
+            </g>
+
+            if (Model["Closed"][ViewBag.DaysBackMinusOne - i].Count != 0)
+            {
+                <g font-size="15" font-family="sans-serif" fill="green"
+                   text-anchor="middle">
+                    <text x="@((i * (svgWidth / ViewBag.DaysBack)) + xPaddingNum)"
+                          y="@(svgHeight - (Model["Closed"][ViewBag.DaysBackMinusOne - i].Count * 10) + yPaddingNum)"
+                          dx="@xRelativePaddingNumGreen"
+                          dy="@(yRelativePaddingNumGreen)">@Model["Closed"][ViewBag.DaysBackMinusOne - i].Count</text>
+                </g>
+            }
+            <g font-size="15" font-family="sans-serif" fill="green"
+               text-anchor="middle">
+                <text x="@((i * (svgWidth / ViewBag.DaysBack)) + xPaddingText)"
+                      y="@(svgHeight)"
+                      dx="@xRelativePaddingText"
+                      dy="@yRelativePaddingText">
+                    <a target="_blank" href=@($"https://mtadev.mta-flint.net:40443/HdTickets/CreatedOnDay/{DateTime.Today.AddDays(i - ViewBag.DaysBackMinusOne).Year}/{DateTime.Today.AddDays(i - ViewBag.DaysBackMinusOne).Month}/{DateTime.Today.AddDays(i - ViewBag.DaysBackMinusOne).Day}")>
+                        @(DateTime.Today.AddDays(i - ViewBag.DaysBackMinusOne).ToString("ddd"))
+                    </a>
+                </text>
+            </g>
+        }
+        Sorry, your browser does not support inline SVG.
+    </svg>
+    <p style="padding-top:10px">
+        Total:
+        <span style="background-color:blue;color:white">
+            @ViewBag.Total
+        </span>
+    </p>
+    <p style="padding-top:10px">
+        Remaining Open:
+        <span style="background-color:red;color:white">
+            @ViewBag.RemainingOpen
+        </span>
+    </p>
+    <p style="padding-top:10px">
+        Closed:
+        <span style="background-color:green;color:white">
+            @ViewBag.Closed
+        </span>
+    </p>
+    <p style="padding-top:10px">
+        Average Age of Open Tickets:
+        <span style="background-color:red;color:white">
+            @ViewBag.AverageDaysOpened days
+        </span>
+    </p>
+    <p style="padding-top:10px">
+        Oldest Ticket:
+        <div>
+            <span style="background-color:red;color:white">
+                ID: @ViewBag.OldestTicketID
+            </span>
+        </div>
+        <div>
+            <span style="background-color:red;color:white">
+                Date: @ViewBag.OldestTicketDate
+            </span>
+        </div>
+    </p>
+</div>
+
+<hr />
+@* <div>Key:</div>
+<div>
+    <p><span style="background-color:blue;color:white">Total</span></p>
+    <p<span style="background-color:red;color:white">Open</span></p>
+    <p<span style="background-color:green;color:white">Closed</span></p>
+</div> *@
+
+
+<script>
+    setInterval(function () {
+        location.reload();
+    }, 120000);
+</script>

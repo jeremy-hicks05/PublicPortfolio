@@ -1,0 +1,95 @@
+﻿@model ResourceMonitor.Models.KACE.HdTicket
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>HdTicket</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="HdPriorityId" class="control-label"></label>
+                <input asp-for="HdPriorityId" class="form-control" />
+                <span asp-validation-for="HdPriorityId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HdImpactId" class="control-label"></label>
+                <input asp-for="HdImpactId" class="form-control" />
+                <span asp-validation-for="HdImpactId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OwnerId" class="control-label"></label>
+                <input asp-for="OwnerId" class="form-control" />
+                <span asp-validation-for="OwnerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubmitterId" class="control-label"></label>
+                <input asp-for="SubmitterId" class="form-control" />
+                <span asp-validation-for="SubmitterId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HdStatusId" class="control-label"></label>
+                <input asp-for="HdStatusId" class="form-control" />
+                <span asp-validation-for="HdStatusId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HdQueueId" class="control-label"></label>
+                <input asp-for="HdQueueId" class="form-control" />
+                <span asp-validation-for="HdQueueId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HdCategoryId" class="control-label"></label>
+                <input asp-for="HdCategoryId" class="form-control" />
+                <span asp-validation-for="HdCategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CcList" class="control-label"></label>
+                <input asp-for="CcList" class="form-control" />
+                <span asp-validation-for="CcList" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsManualDueDate" /> @Html.DisplayNameFor(model => model.IsManualDueDate)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssetId" class="control-label"></label>
+                <input asp-for="AssetId" class="form-control" />
+                <span asp-validation-for="AssetId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParentId" class="control-label"></label>
+                <input asp-for="ParentId" class="form-control" />
+                <span asp-validation-for="ParentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApproverId" class="control-label"></label>
+                <input asp-for="ApproverId" class="form-control" />
+                <span asp-validation-for="ApproverId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ServiceTicketId" class="control-label"></label>
+                <input asp-for="ServiceTicketId" class="form-control" />
+                <span asp-validation-for="ServiceTicketId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketTemplateId" class="control-label"></label>
+                <input asp-for="TicketTemplateId" class="form-control" />
+                <span asp-validation-for="TicketTemplateId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

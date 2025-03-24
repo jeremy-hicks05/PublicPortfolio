@@ -1,0 +1,19 @@
+﻿@using MTAIntranet.Shared
+@model HomeIndexViewModel
+
+
+<div class="text-center">
+    @if (User.Identity is not null)
+    {
+        @if (User.Identity.IsAuthenticated
+       && User.Identity.Name is not null)
+        {
+            <p>Welcome to the MTA Intranet, @User.Identity.Name.Split("\\").Last() </p>
+        }
+    }
+    else
+    {
+        <p>Welcome!  Please contact an IT Administrator to obtain access to this webpage.</p>
+    }
+    <p><em>This site is in an early stage.  Please report any problems, errors, and questions to the MTA Helpdesk</em></p>
+</div>

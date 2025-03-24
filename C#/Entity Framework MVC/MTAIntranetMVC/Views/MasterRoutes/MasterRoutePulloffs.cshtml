@@ -1,0 +1,72 @@
+﻿@using MTAIntranet.MVC.Models
+@using MTAIntranet.Shared
+@model MasterRouteListModel
+
+<div class="text-center">
+    @if (Model.MasterRoutes is not null)
+    {
+        @if (Model.MasterRoutes.Count() > 0)
+        {
+            <h1>
+                Pulloffs for Route
+                @Model.MasterRoutes!.First().route_name
+                @Model.MasterRoutes!.First().mode
+                @Model.MasterRoutes!.First().dow
+                @Model.MasterRoutes!.First().route
+                @Model.MasterRoutes!.First().run
+                @Model.MasterRoutes!.First().suffix
+            </h1>
+
+            <table align="center">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Pulloff Time</th>
+                        <th>Return/End Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (MasterRoute masterRoute in Model.MasterRoutes)
+                    {
+                        if (masterRoute.Matches != null)
+                        {
+                            <tr>
+                                <td style="border-width:thin">
+                                    Route Start: @masterRoute.pull_out_time
+                                </td>
+                            </tr>
+                            @foreach (Pulloff pulloff in masterRoute.Matches)
+                            {
+                                <tr></tr>
+                                <tr>
+                                    <td style="border-width:thin">-</td>
+                                    <td style="border-width:thin">
+                                        @pulloff.PulloffTime
+                                    </td>
+                                    <td style="border-width:thin">
+                                        @pulloff.PulloffReturn
+                                    </td>
+                                    <td style="border-width:thin">
+                                        <a href="~/Pulloffs/DeletePulloff/@pulloff.PulloffID">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td style="border-width:thin">
+                                    Route End: @masterRoute.pull_in_time
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><br /></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No data found</p>
+        }
+    }
+</div>

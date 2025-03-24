@@ -1,0 +1,327 @@
+﻿@model ResourceMonitor.Models.KACE.HdTicket
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>HdTicket</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Summary)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Summary)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HdPriorityId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HdPriorityId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HdImpactId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HdImpactId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Modified)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Modified)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OwnerId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OwnerId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SubmitterId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SubmitterId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HdStatusId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HdStatusId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HdQueueId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HdQueueId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HdCategoryId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HdCategoryId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CcList)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CcList)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Escalated)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Escalated)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomFieldValue0)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomFieldValue0)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomFieldValue1)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomFieldValue1)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomFieldValue2)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomFieldValue2)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomFieldValue3)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomFieldValue3)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomFieldValue4)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomFieldValue4)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomFieldValue5)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomFieldValue5)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomFieldValue6)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomFieldValue6)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomFieldValue7)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomFieldValue7)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomFieldValue8)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomFieldValue8)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomFieldValue9)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomFieldValue9)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomFieldValue10)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomFieldValue10)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomFieldValue11)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomFieldValue11)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomFieldValue12)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomFieldValue12)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomFieldValue13)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomFieldValue13)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomFieldValue14)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomFieldValue14)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DueDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DueDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsManualDueDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsManualDueDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SlaNotified)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SlaNotified)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TimeOpened)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TimeOpened)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TimeClosed)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TimeClosed)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TimeStalled)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TimeStalled)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MachineId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MachineId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SatisfactionRating)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SatisfactionRating)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SatisfactionComment)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SatisfactionComment)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Resolution)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Resolution)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AssetId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AssetId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ParentId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ParentId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsParent)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsParent)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ApproverId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ApproverId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ApproveState)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ApproveState)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Approval)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Approval)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ApprovalNote)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ApprovalNote)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ServiceTicketId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ServiceTicketId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HdServiceStatusId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HdServiceStatusId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HdUseProcessStatus)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HdUseProcessStatus)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HtmlSummary)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HtmlSummary)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TicketTemplateId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TicketTemplateId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EmailMessageId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EmailMessageId)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

@@ -1,0 +1,303 @@
+﻿@using ResourceMonitor.Models.ViewModels
+@model DashboardViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+    ViewBag.BodyClass = "dark-theme";
+}
+
+
+
+<h2>MTAlert Dashboard</h2>
+
+<div class="container">
+    <div class="row">
+        <!-- Left Column -->
+        <div class="col-md-6">
+            <!-- Servers Section -->
+            <div class="card mb-3">
+                <div class="card-header heading-box">
+                    <a target="_blank" href="@Url.Action("Index", "Servers")" class="heading-link">Servers →</a>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach (var server in Model.Servers)
+                        {
+                            <li class="list-group-item @(server.CurrentState == "Healthy" ? "list-group-item-success" : "list-group-item-danger")">
+                                <a target="_blank" href="@Url.Action("Details", "Servers", new { id = server.Id })" class="resource-link">
+                                    @server.FriendlyName - <strong>@server.CurrentState</strong>
+                                </a>
+                                <button class="btn btn-sm btn-primary subscribe-btn" data-type="Servers" data-id="@server.Id">Subscribe</button>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Processes Section -->
+            <div class="card mb-3">
+                <div class="card-header heading-box">
+                    <a target="_blank" href="@Url.Action("Index", "Processes")" class="heading-link">Processes →</a>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach (var process in Model.Processes)
+                        {
+                            <li class="list-group-item @(process.CurrentState == "Healthy" ? "list-group-item-success" : "list-group-item-danger")">
+                                <a target="_blank" href="@Url.Action("Details", "Processes", new { id = process.Id })" class="resource-link">
+                                    @process.ServerName @process.ProcessName @process.FriendlyName - <strong>@process.CurrentState</strong>
+                                </a>
+                                <button class="btn btn-sm btn-primary subscribe-btn" data-type="Processes" data-id="@process.Id">Subscribe</button>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SQL Tables Section -->
+            <div class="card mb-3">
+                <div class="card-header heading-box">
+                    <a target="_blank" href="@Url.Action("Index", "SqlTables")" class="heading-link">SQL Tables →</a>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach (var table in Model.SqlTables)
+                        {
+                            <li class="list-group-item @(table.CurrentState == "Healthy" ? "list-group-item-success" : "list-group-item-danger")">
+                                <a target="_blank" href="@Url.Action("Details", "SqlTables", new { id = table.Id })" class="resource-link">
+                                    @table.ServerName @table.DatabaseName - @table.TableName - @table.FriendlyName - <strong>@table.CurrentState</strong>
+                                </a>
+                                <button class="btn btn-sm btn-primary subscribe-btn" data-type="SqlTables" data-id="@table.Id">Subscribe</button>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-md-6">
+            <!-- Services Section -->
+            <div class="card mb-3">
+                <div class="card-header heading-box">
+                    <a target="_blank" href="@Url.Action("Index", "Services")" class="heading-link">Services →</a>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach (var service in Model.Services)
+                        {
+                            <li class="list-group-item @(service.CurrentState == "Healthy" ? "list-group-item-success" : "list-group-item-danger")">
+                                <a target="_blank" href="@Url.Action("Details", "Services", new { id = service.Id })" class="resource-link">
+                                    @service.ServerName @service.ServiceName @service.FriendlyName - <strong>@service.CurrentState</strong>
+                                </a>
+                                <button class="btn btn-sm btn-primary subscribe-btn" data-type="Services" data-id="@service.Id">Subscribe</button>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Websites Section -->
+            <div class="card mb-3">
+                <div class="card-header heading-box">
+                    <a target="_blank" href="@Url.Action("Index", "Websites")" class="heading-link">Websites →</a>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach (var site in Model.Websites)
+                        {
+                            <li class="list-group-item @(site.CurrentState == "Healthy" ? "list-group-item-success" : "list-group-item-danger")">
+                                <a target="_blank" href="@Url.Action("Details", "Websites", new { id = site.Id })" class="resource-link">
+                                    @site.ServerName @site.WebsiteName @site.FriendlyName - <strong>@site.CurrentState</strong>
+                                </a>
+                                <button class="btn btn-sm btn-primary subscribe-btn" data-type="Websites" data-id="@site.Id">Subscribe</button>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    setInterval(function () {
+        location.reload();
+    }, 120000);
+</script>
+
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".subscribe-btn").forEach(button => {
+            let resourceId = button.getAttribute("data-id");
+            let resourceType = button.getAttribute("data-type"); // New attribute to store resource type
+
+            // Check subscription status dynamically based on resource type
+            fetch(`/${resourceType}/CheckSubscription?id=${resourceId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        updateButton(button, data.subscribed);
+                    }
+                });
+
+            // Handle subscription toggle
+            button.addEventListener("click", function () {
+                let action = button.classList.contains("btn-danger") ? "Unsubscribe" : "Subscribe";
+
+                fetch(`/${resourceType}/Subscribe?id=${resourceId}`, { method: "POST" })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            updateButton(button, action === "Subscribe");
+                        } else {
+                            alert(data.message);
+                        }
+                    });
+            });
+        });
+    });
+
+    function updateButton(button, subscribed) {
+        if (subscribed) {
+            button.textContent = "Unsubscribe";
+            button.classList.remove("btn-primary");
+            button.classList.add("btn-danger");
+        } else {
+            button.textContent = "Subscribe";
+            button.classList.remove("btn-danger");
+            button.classList.add("btn-primary");
+        }
+    }
+
+</script>
+
+
+
+<style>
+
+    body {
+        background-color: #0F0F0F;
+        
+    }
+
+        /* .dark-theme .card {
+            background-color: #3a3a3a;
+            border: 1px solid #555;
+        } */
+
+    /* MTAlert Dashboard Title */
+    /* h2 {
+                font-size: 2.4rem;
+                font-weight: bold;
+                text-align: right;
+                letter-spacing: 1px;
+                margin-bottom: 20px;
+            } */
+
+    h2 {
+        color: #e0e0e0;
+        font-size: 2.2rem;
+        font-weight: 600;
+        text-align: center;
+        text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.4);
+        margin-bottom: 20px;
+        padding-bottom: 8px;
+        display: inline-block;
+        position: relative;
+    }
+
+        /* Thin underline with traffic light gradient */
+        /* h2::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 4px;
+            margin-top: 5px;
+            background: linear-gradient(to right, #dc3545, #ffc107, #28a745);
+            border-radius: 2px;
+        } */
+
+
+
+
+
+    /* General Card Styling */
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05); */
+        box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.4);
+        background-color: #1A1A1A;
+        /* border: 1px solid #555; */
+    }
+
+    /* Gradient Section Heading */
+    .card-header.heading-box {
+        background: linear-gradient(to right, #1e3a5f, #3b5998); /* Dark blue to medium blue */
+        color: #ffffff; /* White text for contrast */
+        font-weight: bold;
+        text-align: center;
+        padding: 10px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+        /* Ensure the heading link is visible */
+        .card-header.heading-box a {
+            color: #ffffff; /* Ensures text contrast */
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Hover Effect */
+        .card-header.heading-box:hover {
+            filter: brightness(1.2);
+        }
+
+    /* Clickable List Items */
+    .resource-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        padding: 10px;
+    }
+
+    /* List Group Styling */
+    .list-group-item {
+        transition: background-color 0.3s, border 0.3s;
+        display: flex;
+        justify-content: space-between; /* Ensures content and button are on opposite sides */
+        align-items: center; /* Vertically centers the content and button */
+        border-left: 4px solid transparent; /* Placeholder for hover effect */
+    }
+
+        /* Hover effect for list items */
+        .list-group-item:hover {
+            background-color: #f1f1f1;
+            border-left: 4px solid #007bff;
+        }
+
+    /* Subscription Button */
+    .subscribe-btn {
+        margin-left: 10px; /* Adds space between text and button */
+    }
+
+    /* Success (Healthy) and Danger (Unhealthy) List Items */
+    .list-group-item-success {
+        background-color: #d4edda;
+        color: #155724;
+        border-color: #c3e6cb;
+    }
+
+    .list-group-item-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border-color: #f5c6cb;
+    }
+
+    /* Add some space between sections */
+    .card {
+        margin-bottom: 15px;
+    }
+</style>

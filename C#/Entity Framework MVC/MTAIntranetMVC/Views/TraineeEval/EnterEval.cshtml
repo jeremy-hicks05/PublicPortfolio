@@ -1,0 +1,67 @@
+﻿@model TraineeEvalModel
+
+<partial name="_Notification" />
+
+@if(Model is not null)
+{
+    <h1>Daily Trainee Evaluation Form</h1>
+<form asp-action="SubmitTraineeEval" method="post">
+        <td><label asp-for="@Model.EmployeeNumber"></label></td>
+        <td><input asp-for="@Model.EmployeeNumber" value="@Model.EmployeeNumber"></td>
+        <td><span asp-validation-for="@Model.EmployeeNumber"></span></td>
+
+        <td><label asp-for="@Model.EmployeeFirstName"></label></td>
+        <td><input asp-for="@Model.EmployeeFirstName" value="@Model.EmployeeFirstName"></td>
+        <td><span asp-validation-for="@Model.EmployeeFirstName"></span></td>
+
+        <td><label asp-for="@Model.EmployeeLastName"></label></td>
+        <td><input asp-for="@Model.EmployeeLastName" value="@Model.EmployeeLastName"></td>
+        <td><span asp-validation-for="@Model.EmployeeLastName"></span></td>
+
+        <td><label asp-for="@Model.Department"></label></td>
+        <td><input asp-for="@Model.Department" value="@Model.Department"></td>
+        <td><span asp-validation-for="@Model.Department"></span></td>
+
+        <td><label asp-for="@Model.Date"></label></td>
+        <td><input asp-for="@Model.Date" value="@Model.Date"></td>
+        <td><span asp-validation-for="@Model.Date"></span></td>
+
+        <td><label asp-for="@Model.VehicleType"></label></td>
+        <td><input asp-for="@Model.VehicleType" value="@Model.VehicleType"></td>
+        <td><span asp-validation-for="@Model.VehicleType"></span></td>
+
+        <td><label asp-for="@Model.DIName"></label></td>
+        <td><input asp-for="@Model.DIName" value="@Model.DIName"></td>
+        <td><span asp-validation-for="@Model.DIName"></span></td>
+
+        <td><label asp-for="@Model.PrePostTrips"></label></td>
+        <td><input asp-for="@Model.PrePostTrips" value="@Model.PrePostTrips"></td>
+        <td><span asp-validation-for="@Model.PrePostTrips"></span></td>
+
+        <td><label asp-for="@Model.RadioEtiquette"></label></td>
+        <td><input asp-for="@Model.RadioEtiquette" value="@Model.RadioEtiquette"></td>
+        <td><span asp-validation-for="@Model.RadioEtiquette"></span></td>
+
+        <td><label asp-for="@Model.CustomerService"></label></td>
+        <td><input asp-for="@Model.CustomerService" value="@Model.CustomerService"></td>
+        <td><span asp-validation-for="@Model.CustomerService"></span></td>
+
+        <td><label asp-for="@Model.DefensiveDriving"></label></td>
+        <td><input asp-for="@Model.DefensiveDriving" value="@Model.DefensiveDriving"></td>
+        <td><span asp-validation-for="@Model.DefensiveDriving"></span></td>
+
+        <td><label asp-for="@Model.RRCrossings"></label></td>
+        <td><input asp-for="@Model.RRCrossings" value="@Model.RRCrossings"></td>
+        <td><span asp-validation-for="@Model.RRCrossings"></span></td>
+
+        <td><label asp-for="@Model.WheelChairSecurements"></label></td>
+        <td><input asp-for="@Model.WheelChairSecurements" value="@Model.WheelChairSecurements"></td>
+        <td><span asp-validation-for="@Model.WheelChairSecurements"></span></td>
+
+        <td><label asp-for="@Model.Comments"></label></td>
+        <td><textarea asp-for="@Model.Comments" value="@Model.Comments" style="width:500px;height:300px"></textarea></td>
+        <td><span asp-validation-for="@Model.Comments"></span></td>
+
+        <input type="submit" value="Add">
+    </form>
+}

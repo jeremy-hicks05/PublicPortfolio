@@ -1,0 +1,56 @@
+﻿@using MTAIntranet.MVC.Models
+@*@model AddMasterRouteModel*@
+@model MasterRouteModel
+
+<partial name="_Notification" />
+
+@if (Model is not null)
+{
+    <form asp-action="AddMasterRoute" method="post">
+        <td><label asp-for="@Model.route_name"></label></td>
+        <td><input asp-for="@Model.route_name" value="@Model.route_name"></td>
+        <td><span asp-validation-for="@Model.route_name"></span></td>
+
+        <td><label asp-for="@Model.mode"></label></td>
+        <td><input asp-for="@Model.mode" value="@Model.mode"></td>
+        <td><span asp-validation-for="@Model.mode"></span></td>
+
+        <td><label asp-for="@Model.dow"></label></td>
+        <td><input asp-for="@Model.dow" value="@Model.dow"></td>
+        <td><span asp-validation-for="@Model.dow"></span></td>
+
+        <td><label asp-for="@Model.route"></label></td>
+        <td><input asp-for="@Model.route" value="@Model.route"></td>
+        <td><span asp-validation-for="@Model.route"></span></td>
+
+        <td><label asp-for="@Model.run"></label></td>
+        <td><input asp-for="@Model.run" value="@Model.run"></td>
+        <td><span asp-validation-for="@Model.run"></span></td>
+
+        <td><label asp-for="@Model.suffix"></label></td>
+        <td><input asp-for="@Model.suffix" value="@Model.suffix"></td>
+        <td><span asp-validation-for="@Model.suffix"></span></td>
+
+        <td><label asp-for="@Model.pull_out_time"></label></td>
+        <td><input asp-for="@Model.pull_out_time" value="@Model.pull_out_time"></td>
+        <td><span asp-validation-for="@Model.pull_out_time"></span></td>
+
+        <td><label asp-for="@Model.pull_in_time"></label></td>
+        <td><input asp-for="@Model.pull_in_time" value="@Model.pull_in_time"></td>
+        <td><span asp-validation-for="@Model.pull_in_time"></span></td>
+
+        <td><label asp-for="@Model.beg_dh_miles"></label></td>
+        <td><input asp-for="@Model.beg_dh_miles" value="@Model.beg_dh_miles"></td>
+        <td><span asp-validation-for="@Model.beg_dh_miles"></span></td>
+
+        <td><label asp-for="@Model.end_dh_miles"></label></td>
+        <td><input asp-for="@Model.end_dh_miles" value="@Model.end_dh_miles"></td>
+        <td><span asp-validation-for="@Model.end_dh_miles"></span></td>
+
+        <input type="submit" value="Add">
+    </form>
+}
+else
+{
+    <p>Master Route not found</p>
+}

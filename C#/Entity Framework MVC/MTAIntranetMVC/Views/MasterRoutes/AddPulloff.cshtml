@@ -1,0 +1,142 @@
+﻿@using MTAIntranet.MVC.Models
+@using MTAIntranet.Shared
+@using MTAIntranet.MVC.Utility
+@model AddPulloffToMasterRouteModel
+
+@if (Model is not null)
+{
+    <div class="text-center">
+        <h1>
+            Add Pulloff for
+            @Model.MasterRoute.route_name
+            @Model.MasterRoute.mode
+            @Model.MasterRoute.dow
+            @Model.MasterRoute.route
+            @Model.MasterRoute.run
+            @Model.MasterRoute.suffix
+        </h1>
+    </div>
+    <form asp-action="AddPulloff" method="post">
+        <td><label id="routename" asp-for="@Model.Pulloff.Route_Name"></label></td>
+        <td><input asp-for="@Model.Pulloff.Route_Name" value="@Model.Pulloff.Route_Name" readonly="readonly"></td>
+        <td><span asp-validation-for="@Model.Pulloff.Route_Name"></span></td>
+
+        <td><label asp-for="@Model.Pulloff.Mode"></label></td>
+        <td><input asp-for="@Model.Pulloff.Mode" value="@Model.Pulloff.Mode" readonly="readonly" /></td>
+        <td><span asp-validation-for="@Model.Pulloff.Mode"></span></td>
+
+        <td><label asp-for="@Model.Pulloff.DoW"></label></td>
+        <td><input asp-for="@Model.Pulloff.DoW" value="@Model.Pulloff.DoW" readonly="readonly" /></td>
+        <td><span asp-validation-for="@Model.Pulloff.DoW"></span></td>
+
+        <td><label asp-for="@Model.Pulloff.Route"></label></td>
+        <td><input asp-for="@Model.Pulloff.Route" value="@Model.Pulloff.Route" readonly="readonly" /></td>
+        <td><span asp-validation-for="@Model.Pulloff.Route"></span></td>
+
+        <td><input asp-for="@Model.Pulloff.RouteStart" value="@Model.MasterRoute.pull_out_time!.Value.ToString("yyyy-MM-ddTHH:mm")" readonly="readonly" hidden="hidden" /></td>
+        <td><input asp-for="@Model.Pulloff.RouteEnd" value="@Model.MasterRoute.pull_in_time!.Value.ToString("yyyy-MM-ddTHH:mm")" readonly="readonly" hidden="hidden" /></td>
+        <td><input asp-for="@Model.Pulloff.Year" value="@Model.Pulloff.Year" readonly="readonly" hidden="hidden" /></td>
+
+        <td><label>Start Time</label></td>
+        <td><input value="@Model.MasterRoute.pull_out_time!.Value.ToString("HH:mm")" readonly="readonly" /></td>
+        <td><span asp-validation-for="@Model.Pulloff.RouteStart"></span></td>
+
+        <td><label>End Time</label></td>
+        <td><input value="@Model.MasterRoute.pull_in_time!.Value.ToString("HH:mm")" readonly="readonly" /></td>
+        <td><span asp-validation-for="@Model.Pulloff.RouteEnd"></span></td>
+
+        @if(@Model.Pulloff.PulloffTime != null)
+        {
+            <td><label asp-for="@Model.Pulloff.PulloffTime"></label></td>
+            <td><input asp-for="@Model.Pulloff.PulloffTime" value="@Model.Pulloff.PulloffTime.Value.ToString("yyyy-MM-ddTHH:mm")" /></td>
+        }
+        else
+        {
+            <td><label asp-for="@Model.Pulloff.PulloffTime"></label></td>
+            <td><input asp-for="@Model.Pulloff.PulloffTime" value="@Model.Pulloff.PulloffTime" /></td>
+        }
+        <td><span asp-validation-for="@Model.Pulloff.PulloffTime"></span></td>
+
+        @if(@Model.Pulloff.PulloffReturn != null)
+        {
+            <td><label asp-for="@Model.Pulloff.PulloffReturn"></label></td>
+            <td><input asp-for="@Model.Pulloff.PulloffReturn" value="@Model.Pulloff.PulloffReturn.Value.ToString("yyyy-MM-ddTHH:mm")" /></td>
+        }
+        else
+        {
+            <td><label asp-for="@Model.Pulloff.PulloffReturn"></label></td>
+            <td><input asp-for="@Model.Pulloff.PulloffReturn" value="@Model.Pulloff.PulloffReturn" /></td>
+        }
+            <td><span asp-validation-for="@Model.Pulloff.PulloffReturn"></span></td>
+
+        <td><label asp-for="@Model.Pulloff.Run"></label></td>
+        <td><input asp-for="@Model.Pulloff.Run" value="@Model.Pulloff.Run" readonly="readonly" /></td>
+        <td><span asp-validation-for="@Model.Pulloff.Run"></span></td>
+
+        <td><label asp-for="@Model.Pulloff.Suffix"></label></td>
+        <td><input asp-for="@Model.Pulloff.Suffix" value="@Model.Pulloff.Suffix" readonly="readonly" /></td>
+        <td><span asp-validation-for="@Model.Pulloff.Suffix"></span></td>
+
+        <input type="submit" value="Add">
+    </form>
+
+    // list current pulloffs for route
+    @if (Model.MasterRoute.Matches is not null)
+    {
+        <div class="text-center">
+            <h2>
+                Pulloffs for Route
+                @Model.MasterRoute.route_name
+                @Model.MasterRoute.mode
+                @Model.MasterRoute.dow
+                @Model.MasterRoute.route
+                @Model.MasterRoute.run
+                @Model.MasterRoute.suffix
+            </h2>
+            <table align="center">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Pulloff Time</th>
+                        <th>Return/End Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Pulloff pulloff in Model.MasterRoute.Matches.OrderBy(p => p.PulloffTime))
+                    {
+                        <tr>
+                            @if (@pulloff.PulloffTime is not null &&
+                           @pulloff.PulloffTime.HasValue
+                           && @pulloff.PulloffReturn is not null &&
+                           @pulloff.PulloffReturn.HasValue)
+
+                            {
+                                <td style="border-width:thin">
+                                    @pulloff.PulloffTime.Value.ToString("MM/dd")
+                                </td>
+
+                                <td style="border-width:thin">
+                                    @pulloff.PulloffTime.Value.ToString("HH:mm")
+                                </td>
+
+                                <td style="border-width:thin">
+                                    @pulloff.PulloffReturn.Value.ToString("HH:mm")
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+}
+else
+{
+    <p>Master Route not found</p>
+}
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    }

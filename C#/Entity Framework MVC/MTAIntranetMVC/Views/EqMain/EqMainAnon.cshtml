@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "_Anon";
+    ViewData["Title"] = "MTA Intranet";
+}
+@using MTAIntranet.MVC.Models
+@using MTAIntranet.Shared
+@model EqMainModel
+
+@if(Model.LocationList is not null)
+{
+    <br />
+    <a class="btn btn-primary" asp-area=""
+        asp-controller="EqMain"
+        asp-action="EqMainAnon"
+        asp-route-location=""
+    >ALL</a>
+    @foreach(string? location in Model.LocationList)
+    {
+        if (location != "DORT" && location != "DORT-IT")
+        {
+            if (location != null)
+            {
+                <a class="btn btn-primary" asp-area=""
+                    asp-controller="EqMain"
+                    asp-action="EqMainAnon"
+                    asp-route-location="@location">
+                    @location
+                </a>
+            }
+        }
+    }
+}
+
+</br>
+</br>
+<label for="filterVN">Vehicle Number</label>
+<input id="filterVN" name="filterVN" type="text" />
+
+<table id="tblVehList" class ="table table-striped mt-2">
+    <thead class="table-light">
+        <tr>
+            <th style="border-width:thin">
+                Equipment No.
+            </th>
+            <th style="border-width:thin">
+                Description
+            </th>
+            <th style="border-width:thin">
+                Stored Location
+            </th>
+            <th style="border-width:thin">
+                SLA Status
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (EqMain eq in Model.VehList!)
+        {
+            <tr>
+                <td style="border-width:thin">
+                    @eq.EqEquipNo
+                </td>
+                <td style="border-width:thin">
+                    @eq.Description
+                </td>
+                <td style="border-width:thin">
+                    @eq.LocStoredLoc
+                </td>
+                <td style="border-width:thin">
+                    @eq.SlaStatus
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="../../js/vehList.js"></script>

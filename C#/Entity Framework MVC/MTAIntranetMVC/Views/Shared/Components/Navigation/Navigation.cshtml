@@ -1,0 +1,63 @@
+﻿@using MTAIntranet.MVC.Utility
+@if (User.IsInRole(AccessRoles.ITS) || 
+    User.IsInRole(AccessRoles.PulloffsAdmin) ||
+    User.IsInRole(AccessRoles.Administration))
+{
+<li class="nav-item">
+    <a class="nav-link text-dark"
+        asp-area=""
+        asp-controller="Pulloffs"
+        asp-action="PulloffsByMonth"
+        asp-route-year="@DateTime.Now.Year"
+        asp-route-id="">
+        Pulloffs
+    </a>
+</li>
+}
+@if (User.IsInRole(AccessRoles.ITS) || 
+    User.IsInRole(AccessRoles.MasterRouteAdmin)||
+    User.IsInRole(AccessRoles.Administration))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark"
+        asp-area=""
+        asp-controller="MasterRoutes"
+        asp-action="MasterRouteList"
+        asp-route-year="@DateTime.Now.Year">MasterRoutes</a>
+    </li>
+}
+@if (User.IsInRole(AccessRoles.ITS) ||
+    User.IsInRole(AccessRoles.Maintenance)||
+    User.IsInRole(AccessRoles.Administration))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark"
+        asp-area=""
+        asp-controller="MainTrans"
+        asp-action="MainTrans">Fuelmaster</a>
+    </li>
+}
+@if (User.IsInRole(AccessRoles.ITS) || 
+    User.IsInRole(AccessRoles.EAM)||
+    User.IsInRole(AccessRoles.Administration))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark"
+        asp-area=""
+        asp-controller="EqMain"
+        asp-action="EqMain">Vehicle List</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link text-dark"
+       asp-area=""
+       asp-controller="MaxQueue"
+       asp-action="MaxQueue">MaxQueue</a>
+    </li>
+}
+<li class="nav-item">
+    <a class="nav-link text-dark"
+        asp-area=""
+        asp-controller="Helpdesk"
+        asp-action="Helpdesk">Helpdesk</a>
+</li>

@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Workflow with Mermaid.js</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                curve: 'basis'
+                //curve: 'linear'
+                //curve: 'monotoneX'
+            }
+        });
+    </script>
+</head>
+<body>
+
+    <div class="mermaid">
+        %% Main workflow graph (top-down)
+        graph TD;
+        Receive_Ticket_1[Receive Ticket] --> Reassign[Assign if necessary]
+
+        Reassign --> Serviceable_Yes_No_Maybe[Serviceable?]
+
+        @* Serviceable YES *@
+        Serviceable_Yes_No_Maybe --> |Yes| Can_Work_On_Today_Yes_No[Can work on Today?]
+            Can_Work_On_Today_Yes_No --> |Yes| Work_On[Work on]
+                Work_On --> Add_Work[Add work to ticket]
+                Add_Work --> Work_Complete_Yes_No[Work complete?]
+                    Work_Complete_Yes_No --> |Yes| Close_Ticket_1((Close))
+                    Work_Complete_Yes_No --> |No| Needs_Reassignment_Yes_No[Needs reassignment?]
+            Can_Work_On_Today_Yes_No --> |No| Needs_Reassignment_Yes_No
+                Needs_Reassignment_Yes_No --> |Yes| Reassign_Ticket((Reassign<br /> ticket))
+                Needs_Reassignment_Yes_No --> |No| Schedule_Ticket[Comment when<br /> you can address]
+                Schedule_Ticket --> Add_To_Calendar[Add to calendar]
+                Add_To_Calendar --> Day_Arrives[Day Arrives]
+                Day_Arrives --> Can_Work_On_Today_Yes_No
+
+        @* Serviceable MAYBE *@
+        Serviceable_Yes_No_Maybe --> |Maybe| Need_Info_From_Submitter_Yes_No[Need more info from submitter?]
+            Need_Info_From_Submitter_Yes_No --> |Yes| Ask_For_Info_From_Submitter[Comment what you <br /> need from submitter]
+            Ask_For_Info_From_Submitter --> Set_To_Waiting_On_Submitter[Set to<br /> Waiting on Submitter]
+            Set_To_Waiting_On_Submitter --> Receive_Response_From_Submitter_Yes_No[Receive response?]
+                Receive_Response_From_Submitter_Yes_No --> |No| Close_Ticket_Auto((Auto-<br />Close))
+                Receive_Response_From_Submitter_Yes_No --> |Yes| Response_Sufficient_Yes_No[Response sufficient?]
+                    Response_Sufficient_Yes_No --> |Yes| Can_Work_On_Today_Yes_No
+                    Response_Sufficient_Yes_No --> |No| Fourth_Try_Yes_No[Fourth try?]
+                        Fourth_Try_Yes_No --> |Yes| Cannot_Service_Why[Say why you cannot service <br /> and add supervisor contact]
+                        Fourth_Try_Yes_No --> |No| Ask_For_Info_From_Submitter
+            Need_Info_From_Submitter_Yes_No --> |No| Need_Guidance_Yes_No[Need management?]
+                Need_Guidance_Yes_No --> |Yes| Ask_Info_From_Management[Comment what you need <br /> from management]
+                Ask_Info_From_Management --> Set_To_Waiting_On_Mgmt[Set to<br /> Waiting on Management]
+                Need_Guidance_Yes_No --> |No| CC_Appropriate_Party[Add necessarry CC to ticket]
+                CC_Appropriate_Party --> Ask_Info_From_Party[Ask appropriate <br /> party for info]
+                Set_To_Waiting_On_Mgmt --> Receive_Guidance_Yes_No[Receive guidance?]
+                Ask_Info_From_Party --> Receive_Guidance_Yes_No
+                    Receive_Guidance_Yes_No --> |Yes| Keep_Ticket_Yes_No[Keep ticket?]
+                        Keep_Ticket_Yes_No --> |Yes| Ask_For_Info_From_Submitter
+                        Keep_Ticket_Yes_No --> |No| Cannot_Service_Why    
+                    Receive_Guidance_Yes_No --> |No| Ask_Next_Meeting[Ask about ticket<br /> at next meeting]
+                Ask_Next_Meeting --> Receive_Guidance_Yes_No
+                    
+        @* Serviceable NO *@
+        Serviceable_Yes_No_Maybe --> |No| Cannot_Service_Why
+            Cannot_Service_Why --> Close_Ticket_2((Close))
+
+
+        @*Link colors*@
+        linkStyle 2 stroke:#008000,stroke-width:2px;
+        linkStyle 3 stroke:#008000,stroke-width:2px;
+        linkStyle 6 stroke:#008000,stroke-width:2px;
+        linkStyle 9 stroke:#008000,stroke-width:2px;
+        linkStyle 15 stroke:#008000,stroke-width:2px;
+        linkStyle 19 stroke:#008000,stroke-width:2px;
+        linkStyle 20 stroke:#008000,stroke-width:2px;
+        linkStyle 22 stroke:#008000,stroke-width:2px;
+        linkStyle 25 stroke:#008000,stroke-width:2px;
+        @* linkStyle 29 stroke:#008000,stroke-width:2px; *@
+        linkStyle 31 stroke:#008000,stroke-width:2px;
+        linkStyle 32 stroke:#008000,stroke-width:2px;
+
+        linkStyle 7 stroke:#FF0000,stroke-width:2px;
+        linkStyle 8 stroke:#FF0000,stroke-width:2px;
+        linkStyle 10 stroke:#FF0000,stroke-width:2px;
+        linkStyle 18 stroke:#FF0000,stroke-width:2px;
+        linkStyle 21 stroke:#FF0000,stroke-width:2px;
+        linkStyle 23 stroke:#FF0000,stroke-width:2px;
+        linkStyle 24 stroke:#FF0000,stroke-width:2px;
+        linkStyle 27 stroke:#FF0000,stroke-width:2px;
+        linkStyle 33 stroke:#FF0000,stroke-width:2px;
+        linkStyle 34 stroke:#FF0000,stroke-width:2px;
+        linkStyle 36 stroke:#FF0000,stroke-width:2px;
+
+        @*node colors*@
+        @*Yellow*@
+        style Ask_For_Info_From_Submitter fill:#FFFFE0,stroke:#000000,stroke-width:1px;
+        style Ask_Info_From_Management fill:#FFFFE0,stroke:#000000,stroke-width:1px;
+        style Cannot_Service_Why fill:#FFFFE0,stroke:#000000,stroke-width:1px;
+        style Ask_Info_From_Party fill:#FFFFE0,stroke:#000000,stroke-width:1px;
+        style Schedule_Ticket fill:#FFFFE0,stroke:#000000,stroke-width:1px;
+        style Add_Work fill:#FFFFE0,stroke:#000000,stroke-width:1px;
+
+        @*Green*@
+        style Close_Ticket_1 fill:#90EE90,stroke:#000000,stroke-width:1px;
+        style Reassign_Ticket fill:#90EE90,stroke:#000000,stroke-width:1px;
+        
+
+        @*Red*@
+        style Close_Ticket_Auto fill:#FFCCCB,stroke:#000000,stroke-width:1px;
+        style Close_Ticket_2 fill:#FFCCCB,stroke:#000000,stroke-width:1px;
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+﻿@model ResourceMonitor.Models.Service
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit Service Listener</h1>
+
+<h4>Service</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="ServerName" class="control-label"></label>
+                <input asp-for="ServerName" class="form-control" />
+                <span asp-validation-for="ServerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ServiceName" class="control-label"></label>
+                <input asp-for="ServiceName" class="form-control" />
+                <span asp-validation-for="ServiceName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FriendlyName" class="control-label"></label>
+                <input asp-for="FriendlyName" class="form-control" />
+                <span asp-validation-for="FriendlyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipients" class="control-label"></label>
+                <input asp-for="Recipients" class="form-control" />
+                <span asp-validation-for="Recipients" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PreviousState" class="control-label"></label>
+                <input asp-for="PreviousState" class="form-control" />
+                <span asp-validation-for="PreviousState" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrentState" class="control-label"></label>
+                <input asp-for="CurrentState" class="form-control" />
+                <span asp-validation-for="CurrentState" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastCheck" class="control-label"></label>
+                <input asp-for="LastCheck" class="form-control" />
+                <span asp-validation-for="LastCheck" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastEmailSent" class="control-label"></label>
+                <input asp-for="LastEmailSent" class="form-control" />
+                <span asp-validation-for="LastEmailSent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastHealthy" class="control-label"></label>
+                <input asp-for="LastHealthy" class="form-control" />
+                <span asp-validation-for="LastHealthy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailFrequency" class="control-label"></label>
+                <input asp-for="EmailFrequency" class="form-control" />
+                <span asp-validation-for="EmailFrequency" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AcceptableDowntime" class="control-label"></label>
+                <input asp-for="AcceptableDowntime" class="form-control" />
+                <span asp-validation-for="AcceptableDowntime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to Services</a>
+</div>
+
