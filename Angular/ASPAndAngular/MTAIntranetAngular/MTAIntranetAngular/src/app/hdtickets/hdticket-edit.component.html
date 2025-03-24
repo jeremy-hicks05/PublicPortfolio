@@ -1,0 +1,295 @@
+<div class="hdticket-edit" style="max-height:100%">
+    <h1>{{viewTitle}}</h1>
+    <p *ngIf="this.id && !hdTicket"><em>Loading…</em></p>
+
+
+    <form style="width:100%" [formGroup]="form">
+        <div style="width:50%;float:right">
+            <label style="padding-left:25px" *ngIf="this.form.controls['category_id'].value != null && this.hdCustomCheckboxFields && this.hdCustomCheckboxFields.length > 0">Tasks to be performed:</label>
+            <mat-list style="padding-left:25px" *ngIf="this.form.controls['category_id'].value != null">
+                <ul *ngFor="let checkboxField of hdCustomCheckboxFields">
+                    <li>
+                        <mat-checkbox *ngIf="this.id != 0" formControlName="{{checkboxField.name.toLowerCase()}}">
+                            {{checkboxField.fieldLabel}}
+                        </mat-checkbox>
+                        <span *ngIf="this.id == 0">
+                            {{checkboxField.fieldLabel}}
+                        </span>
+                    </li>
+                </ul>
+            </mat-list>
+        </div>
+        <div style="width:50%">
+            <!-- Queue -->
+            <mat-form-field>
+                <mat-label *ngIf="!hdQueues">Loading Queues...</mat-label>
+                <mat-label *ngIf="hdQueues">Select a Queue...</mat-label>
+                <mat-select id="hdQueueId" formControlName="hdQueueId" (selectionChange)="queueSelected($event.value)">
+                    <mat-option *ngFor="let hdQueue of hdQueues" [value]="hdQueue.id">
+                        {{ hdQueue.name }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="this.form.controls['hdQueueId'].errors?.['required']">
+                    Queue ID is required.
+                </mat-error>
+            </mat-form-field>
+            <!-- Custom Readonly Text Fields - used for informing users that we know an issue is occurring -->
+            <div *ngIf="this.form.controls['hdQueueId'].value != null">
+                <div *ngFor="let roField of hdReadOnlyCustomFields">
+                    <span style="font-style:italic;color:red">{{roField.default}}</span>
+                </div>
+            </div>
+            <!-- Category -->
+            <mat-form-field *ngIf="this.form.controls['hdQueueId'].value != 0 || this.id">
+                <mat-label *ngIf="!hdCategories">Loading Categories...</mat-label>
+                <mat-label *ngIf="hdCategories">Select a Category...</mat-label>
+                <mat-select id="category_id" formControlName="category_id" (selectionChange)="categorySelected(selectedQueue, $event.value)">
+                    <mat-option *ngFor="let hdCategory of hdCategories" [value]="hdCategory.id">
+                        {{ hdCategory.name }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="this.form.controls['category_id'].errors?.['required']">
+                    Category is required.
+                </mat-error>
+            </mat-form-field>
+
+            <!--Title-->
+            <mat-form-field *ngIf="this.form.controls['category_id'].value != null">
+                <mat-label>Title:</mat-label>
+                <input matInput formControlName="title" required
+                       placeholder="Type a Title">
+                <mat-error *ngIf="this.form.controls['title'].errors?.['required']">
+                    Title is required.
+                </mat-error>
+            </mat-form-field>
+            <!--Summary-->
+            <mat-form-field *ngIf="this.form.controls['category_id'].value != null">
+                <mat-label>Summary:</mat-label>
+                <textarea style="height:25px;resize:none" matInput formControlName="summary" required
+                          placeholder="Type a Summary"></textarea>
+                <mat-error *ngIf="this.form.controls['summary'].errors?.['required']">
+                    Summary is required.
+                </mat-error>
+            </mat-form-field>
+            <!-- Impact ID  -->
+            <mat-form-field [class.cdk-visually-hidden]="false" *ngIf="this.form.controls['category_id'].value != null">
+                <mat-label *ngIf="!hdImpacts">Loading Impacts...</mat-label>
+                <mat-label *ngIf="hdImpacts">Select an Impact...</mat-label>
+                <mat-select id="impact_id" formControlName="impact_id" (selectionChange)="impactSelected(selectedQueue, $event.value)">
+                    <mat-option *ngFor="let hdImpact of hdImpacts"
+                                [value]="hdImpact.id">
+                        {{ hdImpact.name }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="this.form.controls['impact_id'].errors?.['required']">
+                    Impact is required.
+                </mat-error>
+            </mat-form-field>
+            <!-- Priority ID  -->
+            <mat-form-field [class.cdk-visually-hidden]="false" *ngIf="this.form.controls['category_id'].value != null">
+                <mat-label *ngIf="!hdPriorities">Loading Priorities...</mat-label>
+                <mat-label *ngIf="hdPriorities">Select a Priority...</mat-label>
+                <mat-select id="priority_id" formControlName="priority_id">
+                    <mat-option *ngFor="let hdPriority of hdPriorities"
+                                [value]="hdPriority.id">
+                        {{ hdPriority.name }} {{ hdPriority.resolutionDueDateMinutes == 0 ? "" : " - " + hdPriority.resolutionDueDateMinutes + " minutes" }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="this.form.controls['priority_id'].errors?.['required']">
+                    Priority is required.
+                </mat-error>
+            </mat-form-field>
+            <!-- Custom Fields -->
+            <div *ngIf="this.form.controls['category_id'].value != null">
+                <mat-form-field *ngFor="let field of hdFields">
+                    <mat-label>{{field.fieldLabel}}</mat-label>
+                    <input matInput formControlName="{{field.hdTicketFieldName}}"
+                           required="{{field.requiredState == 'all'}}"
+                           placeholder="{{field.fieldLabel}}" />
+                    <!-- <mat-error *ngIf="this.form.controls['{{textField.hdTicketFieldName}}'].errors?.['required']">
+                        {{textField.hdTicketFieldName}} is required.
+                    </mat-error> -->
+                </mat-form-field>
+            </div>
+            <!-- Custom Text Fields -->
+            <div *ngIf="this.form.controls['category_id'].value != null">
+                <mat-form-field *ngFor="let textField of hdCustomTextFields">
+                    <mat-label>{{textField.fieldLabel}}</mat-label>
+                    <input matInput formControlName="{{textField.name.toLowerCase()}}"
+                           required="{{textField.requiredState == 'all'}}"
+                           placeholder="{{textField.fieldLabel}}" />
+                    <!-- <mat-error *ngIf="this.form.controls['{{textField.hdTicketFieldName}}'].errors?.['required']">
+                        {{textField.hdTicketFieldName}} is required.
+                    </mat-error> -->
+                </mat-form-field>
+            </div>
+            <!-- Custom Checkbox Fields -->
+            <!-- <label *ngIf="this.form.controls['category_id'].value != null && this.hdCustomCheckboxFields && this.hdCustomCheckboxFields.length > 0">Tasks to be performed:</label>
+            <div *ngIf="this.form.controls['category_id'].value != null">
+                <ul *ngFor="let checkboxField of hdCustomCheckboxFields">
+                    <li>{{checkboxField.fieldLabel}}</li>
+                </ul>
+            </div> -->
+            <!-- (checked)="form.controls['{{checkboxField.name.toLowerCase()}}'].value == '1'" -->
+            <!-- [checked]="isChecked('{{checkboxField.name.toLowerCase()}}')" -->
+            <!-- Custom Date Fields -->
+            <div *ngIf="this.form.controls['category_id'].value != null">
+                <mat-form-field *ngFor="let dateField of hdCustomDateFields">
+                    <mat-label>{{dateField.fieldLabel}}:</mat-label>
+                    <input formControlName="{{dateField.fieldLabel}}" matInput [matDatepicker]="test" />
+                    <mat-hint>YYYY-MM-DD HH:MM:SS</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="test"></mat-datepicker-toggle>
+                    <mat-datepicker #test></mat-datepicker>
+                    <!-- <mat-error *ngIf="this.form.controls['{{dateField.name}}'].errors?.['required']">
+                         {{dateField.name}} is required.
+                    </mat-error> -->
+                </mat-form-field>
+            </div>
+            <!-- <div *ngIf="this.form.controls['category_id'].value != null">
+                <mat-form-field *ngFor="let customField of hdFieldsCustom">
+                    <mat-label>{{customField.fieldLabel}}</mat-label>
+                    <input matInput formControlName="{{customField.name.toLocaleLowerCase()}}" required="{{customField.requiredState == 'all'}}" placeholder="{{customField.fieldLabel}}" />
+                </mat-form-field>
+            </div> -->
+            <!--Approver ID-->
+            <!-- <mat-form-field *ngIf="this.form.controls['approverId'].value != 0"> -->
+            <!-- <mat-form-field [class.cdk-visually-hidden]="true">
+                <mat-label>Approver Id:</mat-label>
+                <input matInput formControlName="approverId" required
+                       placeholder="Approver Id">
+                <mat-error *ngIf="this.form.controls['approverId'].errors?.['required']">
+                    Approver Id
+                </mat-error>
+            </mat-form-field> -->
+            <!-- New Manager First Name -->
+            <!-- <mat-form-field *ngIf="this.form.controls['category_id'].value != null &&
+                    (this.form.controls['hdQueueId'].value == 9 ||
+                    this.form.controls['hdQueueId'].value == 10)">
+                <mat-label>First Name:</mat-label>
+                <input matInput formControlName="firstName"
+                       [required]="this.form.controls['hdQueueId'].value == 9 || this.form.controls['hdQueueId'].value == 10"
+                       placeholder="Enter New Manager's First Name">
+                <mat-error *ngIf="this.form.controls['firstName'].errors?.['required']">
+                    First Name is required.
+                </mat-error>
+            </mat-form-field> -->
+            <!-- New Manager Last Name -->
+            <!-- <mat-form-field *ngIf="this.form.controls['category_id'].value != null &&
+                    (this.form.controls['hdQueueId'].value == 9 ||
+                    this.form.controls['hdQueueId'].value == 10)">
+                <mat-label>Last Name:</mat-label>
+                <input matInput formControlName="lastName"
+                       [required]="this.form.controls['hdQueueId'].value == 9 || this.form.controls['hdQueueId'].value == 10"
+                       placeholder="Enter New Manager's Last Name">
+                <mat-error *ngIf="this.form.controls['lastName'].errors?.['required']">
+                    Last Name is required.
+                </mat-error>
+            </mat-form-field> -->
+            <!--Due Date-->
+            <!-- [required]="this.form.controls['hdQueueId'].value == 9 || this.form.controls['hdQueueId'].value == 10" -->
+            <!-- *ngIf="this.form.controls['category_id'].value != null &&
+            (this.form.controls['hdQueueId'].value == 9 ||
+            this.form.controls['hdQueueId'].value == 10)" -->
+            <div *ngIf="this.hasDueDate && this.form.controls['category_id'].value != null">
+                <mat-form-field>
+                    <mat-label>{{this.dueDateLabel}} :</mat-label>
+                    <input formControlName="due_date" matInput [matDatepicker]="picker" />
+                    <mat-hint>YYYY-MM-DD HH:MM:SS</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="this.form.controls['due_date'].errors?.['required']">
+                        Due Date is required.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <!-- New Manager User to Mirror -->
+            <!-- <mat-form-field *ngIf="this.form.controls['category_id'].value != null &&
+                    (this.form.controls['hdQueueId'].value == 10)">
+                <mat-label>User to Mirror Access:</mat-label>
+                <input matInput formControlName="userToMirror"
+                       [required]="this.form.controls['hdQueueId'].value == 10"
+                       placeholder="Enter Existing User to Mirror Access">
+                <mat-error *ngIf="this.form.controls['userToMirror'].errors?.['required']">
+                    User to Mirror is required.
+                </mat-error>
+            </mat-form-field> -->
+            <!-- Comments -->
+            <div *ngIf="this.id != 0">
+                <div>Comments</div>
+                <ul>
+                    <li *ngFor="let hdTicketChange of hdTicketChanges">{{ hdTicketChange.timestamp }} {{ hdTicketChange.userName }}: {{hdTicketChange.description ?? ""}} - {{hdTicketChange.comment ?? ""}}</li>
+                </ul>
+                <textarea placeholder="Enter Comment Here" style="height: 100px;width: 400px;resize:none" formControlName="comment" [required]="id != undefined"></textarea>
+            </div>
+            <!-- Submitter -->
+            <mat-form-field [class.cdk-visually-hidden]="true">
+                <mat-label>Submitter:</mat-label>
+                <input matInput formControlName="submitter_id" required
+                       placeholder="Type a Submitter ID">
+                <mat-error *ngIf="this.form.controls['submitter_id'].errors?.['required']">
+                    Submitter ID is required.
+                </mat-error>
+            </mat-form-field>
+            <!-- Device ID -->
+            <mat-form-field [class.cdk-visually-hidden]="true">
+                <mat-label>Device ID:</mat-label>
+                <input matInput formControlName="machine_id" required
+                       placeholder="Type a Device ID>">
+                <mat-error *ngIf="this.form.controls['machine_id'].errors?.['required']">
+                    Device ID is required.
+                </mat-error>
+            </mat-form-field>
+            <!-- Owner -->
+            <mat-form-field [class.cdk-visually-hidden]="true">
+                <mat-label>Owner:</mat-label>
+                <input matInput formControlName="owner_id" required [hidden]=false
+                       placeholder="Type an Owner ID">
+                <mat-error *ngIf="this.form.controls['owner_id'].errors?.['required']">
+                    Owner ID is required.
+                </mat-error>
+            </mat-form-field>
+            <!-- Status ID -->
+            <!-- <mat-form-field [class.cdk-visually-hidden]="false">
+                <mat-label>Status ID:</mat-label>
+                <input matInput formControlName="status_id" required [hidden]=false
+                       placeholder="Type a Status ID">
+                <mat-error *ngIf="this.form.controls['status_id'].errors?.['required']">
+                    Status ID is required.
+                </mat-error>
+            </mat-form-field> -->
+            <!--Approve Button-->
+            <!-- <div *ngIf="this.approverId != null">
+                <button style="margin:5px" mat-flat-button color="primary"
+                        (click)="onApprove()"
+                        [disabled]="!form.valid" [hidden]="approveButtonClicked">
+                    {{ this.id ? "Approve" : "Create" }}
+                </button>
+                <button style="margin:5px" mat-flat-button color="primary"
+                        [disabled]="true" [hidden]="!approveButtonClicked">
+                    {{ this.id ? "Approving ticket..." : "Creating..." }}
+                </button>
+                <button mat-flat-button color="secondary"
+                        (click)="onReject()"
+                        [routerLink]="['/']" [hidden]="approveClicked">
+                    Reject
+                </button>
+            </div> -->
+            <!--Add Comment Button-->
+            <div>
+                <button style="margin:5px" mat-flat-button color="primary"
+                        (click)="onSubmit()"
+                        [disabled]="!form.valid" [hidden]="createButtonClicked">
+                    {{ this.id ? "Add Comment" : "Create" }}
+                </button>
+                <button style="margin:5px" mat-flat-button color="primary"
+                        [disabled]="true" [hidden]="!createButtonClicked">
+                    {{ this.id ? "Adding comment..." : "Creating..." }}
+                </button>
+                <button mat-flat-button color="secondary"
+                        [routerLink]="['/']" [hidden]="createButtonClicked">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

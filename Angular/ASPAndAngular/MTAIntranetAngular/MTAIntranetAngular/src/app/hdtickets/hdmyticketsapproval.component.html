@@ -1,0 +1,93 @@
+<h1 id="tableLabel">Tickets that need my Approval</h1>
+
+<p>Here is the list of tickets that are awaiting your approval:</p>
+
+<p *ngIf="!hdTickets">
+    <em>Loading...</em>
+</p>
+
+<button mat-flat-button color="primary"
+        class="btn-add" *ngIf="hdTickets" [routerLink]="['/ticket']">
+    Add a new Ticket
+</button>
+
+<mat-form-field [hidden]="!hdTickets">
+    <input matInput #filter (keyup)="loadData(filter.value)"
+           placeholder="Filter by ID..." />
+</mat-form-field>
+
+<table mat-table [dataSource]="hdTickets"
+       class="mat-elevation-z8"
+       [hidden]="!hdTickets"
+       matSort (matSortChange)="loadData()"
+       [matSortActive]="defaultSortColumn"
+       [matSortDirection]="defaultSortOrder">
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>id</th>
+        <td mat-cell *matCellDef="let hdTicket"><a [routerLink]="['/hdTicket', hdTicket.id]">{{hdTicket.id}}</a></td>
+    </ng-container>
+    <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>title</th>
+        <td mat-cell *matCellDef="let hdTicket">{{hdTicket.title}}</td>
+    </ng-container>
+    <ng-container matColumnDef="created">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>created</th>
+        <td mat-cell *matCellDef="let hdTicket">{{hdTicket.created}}</td>
+    </ng-container>
+    <ng-container matColumnDef="summary">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>summary</th>
+        <td mat-cell *matCellDef="let hdTicket">
+            <div style="max-width:600px;max-height:200px;overflow:hidden">
+                {{hdTicket.summary}}
+            </div>
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="hdPriorityId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>hdpriorityid</th>
+        <td mat-cell *matCellDef="let hdTicket">{{hdTicket.priorityName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="hdImpactId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>hdimpactid</th>
+        <td mat-cell *matCellDef="let hdTicket">{{hdTicket.impactName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="ownerId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ownerid</th>
+        <td mat-cell *matCellDef="let hdTicket">{{hdTicket.ownerName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="submitterId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>submitterId</th>
+        <td mat-cell *matCellDef="let hdTicket">{{hdTicket.submitterName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="hdStatusId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>hdstatusid</th>
+        <td mat-cell *matCellDef="let hdTicket">{{hdTicket.statusName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="hdQueueId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>hdqueueid</th>
+        <td mat-cell *matCellDef="let hdTicket">{{hdTicket.queueName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="hdCategoryId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>hdCategoryId</th>
+        <td mat-cell *matCellDef="let hdTicket">{{hdTicket.categoryName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="approverId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>approverId</th>
+        <td mat-cell *matCellDef="let hdTicket">
+            {{hdTicket.approverName != userName ? "" : hdTicket.approval}}
+            <!-- hdTicket.approverName == userName && -->
+            <button *ngIf="(hdTicket.approval == 'none' || hdTicket.approval == '' || hdTicket.approverId == 0)"
+                    (click)="approveTicket(hdTicket.id, hdTicket.hdQueueId, hdTicket.approverId)">
+                Approve
+            </button>
+        </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<!-- Pagination directive -->
+<mat-paginator [hidden]="!hdTickets"
+               (page)="getData($event)"
+               [pageSize]="10"
+               [pageSizeOptions]="[10, 20, 50]"
+               showFirstLastButtons></mat-paginator>

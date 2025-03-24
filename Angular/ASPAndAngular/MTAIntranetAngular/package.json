@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "angular-connection-service": "^13.0.1"
+  }
+}

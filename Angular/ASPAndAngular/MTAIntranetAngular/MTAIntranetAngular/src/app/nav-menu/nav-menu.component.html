@@ -1,0 +1,16 @@
+<header>
+    <mat-toolbar color="primary">
+        <button mat-icon-button [routerLink]="['/']">
+            <mat-icon>home</mat-icon>
+        </button>
+        <a *ngIf="isITUser" mat-flat-button color="primary" [routerLink]="['/tickets']">
+            All Tickets
+        </a>
+        <a mat-flat-button color="primary" [routerLink]="['/myTickets']">
+            My Tickets
+        </a>
+        <!-- <a *ngIf="isITUser" mat-flat-button color="primary" [routerLink]="['/ticketsThatNeedMyApproval']">
+            Tickets that Need My Approval
+        </a> -->
+    </mat-toolbar>
+</header>
